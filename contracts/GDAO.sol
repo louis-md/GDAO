@@ -49,46 +49,6 @@ contract Legitimate {
 
 }
 
-contract ATest{
-    Legislator public legislator;
-    Legislation public registry;
-    DictatorVoting public voting;
-    SubstituteVoting public proposal;
-
-
-    function ATest(){
-        log0("caller is owner");
-        registry = new Legislation();
-        legislator= new Legislator();
-        registry.burnOwner();
-        registry.insert(legislator); // the legislator is a legit contract
-
-    }
-    function step1(){
-        legislator.setRegistry(registry);
-        voting = new DictatorVoting();
-        legislator.setVoting(voting);
-
-    }
-    function step2(){
-
-        proposal = new SubstituteVoting(legislator, new NaiveMajorityVoting());
-        legislator.proposeLaw(proposal, 200);
-    }
-    function step3(){
-        voting.vote(1);
-        legislator.enactLaw(1);
-        proposal.execute();
-
-    }
-
-    function assertVotingChanged() constant returns (bool){
-        address a =address(voting);
-        LegitimateVoting v = legislator.getVoting();
-        address b = address(v);
-        return a != b;
-    }
-}
 
 
 contract Legislation is Legitimate{
@@ -131,10 +91,14 @@ contract Legislator is Legitimate{
     }
 
     function setRegistry(Legislation _registry) callerLegit legit external{
+        legalRegistry.remove(_registry);
+        legalRegistry.insert(_registry);
         legalRegistry = _registry;
     }
 
     function setVoting(LegitimateVoting _voting) callerLegit legit external{
+        legalRegistry.insert(_voting);
+        legalRegistry.remove(voting);
         voting = _voting;
     }
     function getVoting() public returns (LegitimateVoting){
