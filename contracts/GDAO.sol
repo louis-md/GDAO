@@ -83,8 +83,8 @@ contract Legislation is Legitimate{
 contract Legislator is Legitimate{
 
 
-    LegitimateVoting public voting ;
-    LegitimateLaw[] public proposals;
+    Voting public voting ;
+    Law[] public proposals;
 
     function Legislator (){
         owner= msg.sender;
@@ -98,16 +98,16 @@ contract Legislator is Legitimate{
 
     }
 
-    function setVoting(LegitimateVoting _voting) callerLegit legit external{
+    function setVoting(Voting _voting) callerLegit legit external{
         legalRegistry.insert(_voting);
         //if (address(voting) != 0x0) legalRegistry.remove(voting);
         voting = _voting;
     }
-    function getVoting() constant public returns (LegitimateVoting){
+    function getVoting() constant public returns (Voting){
         return voting;
     }
 
-    function proposeLaw(LegitimateLaw _proposal, uint _deadline) callerLegit legit external{
+    function proposeLaw(Law _proposal, uint _deadline) callerLegit legit external{
         proposals.push(_proposal);
         voting.propose(proposals.length, _deadline);
     }
@@ -121,13 +121,13 @@ contract Legislator is Legitimate{
 
 }
 
-contract LegitimateVoting is Legitimate {
-    function vote(uint _proposalNumber) external;
-    function propose(uint _proposalNumber, uint _deadline) external;
-    function isPassed(uint _proposalNumber) external constant returns (bool);
+contract Voting is Legitimate {
+    function vote(uint _proposalID) external;
+    function propose(uint _proposalID, uint _deadline) external;
+    function isPassed(uint _proposalID) external constant returns (bool);
 }
 
-contract AutocraticVoting is LegitimateVoting{
+contract AutocraticVoting is Voting{
 
     mapping (uint => bool) passed;
     function AutocraticVoting(){
@@ -148,7 +148,7 @@ contract AutocraticVoting is LegitimateVoting{
     }
 
 }
-contract NaiveMajorityVoting is LegitimateVoting{
+contract NaiveMajorityVoting is Voting{
     uint voters = 3;
     mapping (uint => uint) votes;
 
@@ -172,16 +172,16 @@ contract NaiveMajorityVoting is LegitimateVoting{
 }
 
 
-contract LegitimateLaw is Legitimate{
+contract Law is Legitimate{
   string public description;
 }
 
-contract SubstituteVoting is LegitimateLaw{
+contract SubstituteVoting is Law{
 
-    LegitimateVoting newVoting;
+    Voting newVoting;
     Legislator legislator;
 
-    function SubstituteVoting(Legislator _legislator, LegitimateVoting _newvoting){
+    function SubstituteVoting(Legislator _legislator, Voting _newvoting){
         description = "substitute the court by a simple majority vote of party members";
         newVoting = _newvoting;
         legislator = _legislator;
