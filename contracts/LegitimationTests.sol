@@ -12,29 +12,29 @@ contract AaLegitimationTest{
         registry = new Legislation();
 
         registry.insert(legislator); // the legislator is a legit contract
-        if(assertInserted()) log0(1);
+        if(assertInserted(legislator)) log0(1);
     }
 
+    //This is a low level test to check if 'legit' caller legit works
     function WhenRegistryOwnerBurned_ThenInsertNotPossible(){
         legislator= new Legislator();
         registry = new Legislation();
         //legislator.burnOwner();
         registry.burnOwner();
         registry.insert(legislator);
-        if(!assertInserted()) log0(2);
+        if(!assertInserted(legislator)) log0(2);
     }
 
+    // this goes a bit higher in the abstraction and checks if a legit
     function WhenLegislatorRegistered_ThenProposalPossible(){
         legislator= new Legislator();
-        registry = new Legislation();
-        registry.insert(legislator);
-        registry.burnOwner();
-        var voting = new DictatorVoting();
+
+        var voting = new AutocraticVoting();
         legislator.setVoting(voting);
-       // if(!assertInserted()) log0(3);
+        if(!assertInserted(voting)) log0(3);
     }
 
-    function assertInserted() constant returns (bool){
-       return registry.contains(legislator);
+    function assertInserted(address addr) constant returns (bool){
+       return registry.contains(addr);
     }
 }

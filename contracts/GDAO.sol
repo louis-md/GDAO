@@ -88,20 +88,22 @@ contract Legislator is Legitimate{
 
     function Legislator (){
         owner= msg.sender;
+        setRegistry(new Legislation());
     }
 
-    function setRegistry(Legislation _registry) callerLegit legit external{
-        legalRegistry.remove(_registry);
-        legalRegistry.insert(_registry);
+    function setRegistry(Legislation _registry) callerLegit legit public{
+        if (address(legalRegistry) != 0x0) legalRegistry.remove(_registry);
         legalRegistry = _registry;
+        legalRegistry.insert(_registry);
+
     }
 
     function setVoting(LegitimateVoting _voting) callerLegit legit external{
         legalRegistry.insert(_voting);
-        legalRegistry.remove(voting);
+        //if (address(voting) != 0x0) legalRegistry.remove(voting);
         voting = _voting;
     }
-    function getVoting() public returns (LegitimateVoting){
+    function getVoting() constant public returns (LegitimateVoting){
         return voting;
     }
 
@@ -125,10 +127,10 @@ contract LegitimateVoting is Legitimate {
     function isPassed(uint _proposalNumber) external constant returns (bool);
 }
 
-contract DictatorVoting is LegitimateVoting{
+contract AutocraticVoting is LegitimateVoting{
 
     mapping (uint => bool) passed;
-    function DictatorVoting(){
+    function AutocraticVoting(){
         owner = msg.sender;
     }
 
