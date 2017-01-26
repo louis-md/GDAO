@@ -84,7 +84,7 @@ contract Legislator is Legitimate{
 
 
     Voting public voting ;
-    Law[] public proposals;
+
 
     function Legislator (){
         owner= msg.sender;
@@ -107,44 +107,43 @@ contract Legislator is Legitimate{
         return voting;
     }
 
-    function proposeLaw(Law _proposal, uint _deadline) callerLegit legit external{
-        proposals.push(_proposal);
-        voting.propose(proposals.length, _deadline);
+    function proposeLaw(Proposal _proposal) callerLegit legit external{
+
+        voting.propose(_proposal);
     }
 
-    function enactLaw(uint _proposalNumber)  external{
-        if (!voting.isPassed(_proposalNumber)) throw;
-        legalRegistry.insert(proposals[_proposalNumber - 1]);
-        delete proposals[_proposalNumber - 1];
+    function enactLaw(Proposal _proposal)  external{
+        if (!voting.isPassed(_proposal)) throw;
+        legalRegistry.insert(_proposal.getLaw());
 
     }
 
 }
 
 contract Voting is Legitimate {
-    function vote(uint _proposalID) external;
-    function propose(uint _proposalID, uint _deadline) external;
-    function isPassed(uint _proposalID) external constant returns (bool);
+
+    function propose(Proposal _proposal) external;
+    function isPassed(Proposal _proposal) external constant returns (bool);
 }
 
 contract AutocraticVoting is Voting{
 
-    mapping (uint => bool) passed;
+    mapping (address => bool) passed;
     function AutocraticVoting(){
         owner = msg.sender;
     }
 
-    function vote(uint _proposalNumber) external{
+    function vote(address _proposal) external{
         if (msg.sender != owner) throw;
-        passed[_proposalNumber] = true;
+        passed[_proposal] = true;
     }
 
-    function propose(uint _proposalNumber, uint _deadline) external{
-        passed[_proposalNumber]=false;
+    function propose(Proposal _proposal) external{
+        passed[_proposal]=false;
     }
 
-    function isPassed(uint _proposalNumber) external constant returns (bool){
-        return passed[_proposalNumber];
+    function isPassed(Proposal _proposal) external constant returns (bool){
+        return passed[_proposal];
     }
 
 }
@@ -174,6 +173,12 @@ contract NaiveMajorityVoting is Voting{
 
 contract Law is Legitimate{
   string public description;
+}
+
+contract Proposal{
+    function getLaw() constant returns (Law){
+
+    }
 }
 
 contract SubstituteVoting is Law{
