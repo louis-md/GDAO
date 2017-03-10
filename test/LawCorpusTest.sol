@@ -3,11 +3,12 @@ import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
 import "../contracts/LawCorpus.sol";
 import "../contracts/Legislator.sol";
+import "../contracts/example/laws/AutocraticVoting.sol";
 
 contract LawCorpusTest{
-  //  Legislator public legislator;
-    //LawCorpus public registry;
-/*
+    Legislator public legislator;
+    LawCorpus public registry;
+
     function LawCorpusTest(){
 
       registry = new LawCorpus();
@@ -16,12 +17,12 @@ contract LawCorpusTest{
 
     function testThawedInsert(){
 
-        legislator= new Legislator(address(registry));
+        legislator= new Legislator();
         registry.insert(legislator);
         Assert.isTrue(isInRegister(legislator), "Insertion of Legislator failed for owner");
     }
-*/
-/**
+
+
 //This is a low level test to check if 'valid' caller legit works
 function testWhenRegistryOwnerBurned_ThenInsertNotPossible(){
     legislator= new Legislator();
@@ -40,7 +41,7 @@ function testWhenLegislatorRegistered_ThenProposalPossible(){
     legislator.setVoting(voting);
     Assert.isTrue(isInRegister(voting), "Setting valdid Voting fails");
 }
-**/
+
 
     /** helpers **/
     function isInRegister(address addr) constant returns (bool){
