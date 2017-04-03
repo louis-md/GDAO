@@ -6,7 +6,7 @@ contract('LawCorpus', (accounts) => {
   // runs before all tests in this block
   before(() => {
     // Put the contract instance in a variable
-    LawCorpus.deployed().then((res) => {
+    return LawCorpus.deployed().then((res) => {
       instance = res;
     });
   });

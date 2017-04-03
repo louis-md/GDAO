@@ -9,7 +9,7 @@ contract('Valid', (accounts) => {
     console.log(accounts);
 
     // Put the contract instance in a variable
-    Valid.deployed().then((res) => {
+    return Valid.deployed().then((res) => {
       instance = res;
     });
   });
@@ -24,7 +24,9 @@ contract('Valid', (accounts) => {
               .then((burnedOwnerAddr) => {
                 assert.equal(burnedOwnerAddr, '0x00000000000000000000000000000000deadbeef', 'burnedOwnerAddr should equal 0xdeadbeef');
               });
-          });
-      });
+          })
+        .catch((err) => console.log(`failed: ${err}`))
+      })
+      .catch((err) => console.log(`failed: ${err}`))
   });
 });

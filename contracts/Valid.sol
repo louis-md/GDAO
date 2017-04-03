@@ -41,7 +41,7 @@ contract Valid {
     }
 
 
-    function getOwner() external constant returns(address) {
+    function getOwner() external returns (address) {
         return owner;
     }
 
