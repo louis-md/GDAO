@@ -6,7 +6,11 @@ contract Valid {
     LawCorpus public legalRegistry;
     address public owner; // for a thawing phase
 
-    function Legitime(){
+    event NotLegit(address);
+    event CallerNotLegit(address);
+    event Msg(string mes);
+
+    function Valid() {
         owner = msg.sender;
     }
 
@@ -14,20 +18,18 @@ contract Valid {
         if (address(legalRegistry) != 0x0 && legalRegistry.contains(address(this))){
             _;
         }
-        else if (owner !=  0xdeadbeef && msg.sender == owner) {
+        else if (owner !=  0x00000000000000000000000000000000deadbeef && msg.sender == owner) {
 
             _;
         }
         else NotLegit(address(this));
     }
-    event NotLegit(address);
 
     modifier callerLegit {
-
         if (address(legalRegistry) != 0x0 && legalRegistry.contains(msg.sender)){
             _;
         }
-        else if (owner !=  0xdeadbeef && msg.sender == owner) {
+        else if (owner !=  0x00000000000000000000000000000000deadbeef && msg.sender == owner) {
             _;
         }
         else CallerNotLegit(msg.sender);
@@ -38,14 +40,12 @@ contract Valid {
         _;
     }
 
-    event CallerNotLegit(address);
-    event Msg(string mes);
 
-    function getOwner() external returns(address){
+    function getOwner() external constant returns(address) {
         return owner;
     }
 
-    function burnOwner() callerLegit{
-        owner = 0xdeadbeef; //thawing phase is over
+    function burnOwner() callerLegit {
+        owner = 0x00000000000000000000000000000000deadbeef; //thawing phase is over
     }
 }

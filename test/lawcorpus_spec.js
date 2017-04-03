@@ -5,10 +5,6 @@ let contractAddress = '0x3b4a55dd0926b8048266f17ed507907f1a2c1988';
 contract('LawCorpus', (accounts) => {
   // runs before all tests in this block
   before(() => {
-    // List all accounts
-    console.log('List all accounts');
-    console.log(accounts);
-
     // Put the contract instance in a variable
     LawCorpus.deployed().then((res) => {
       instance = res;
