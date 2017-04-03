@@ -1,25 +1,56 @@
 let LawCorpus = artifacts.require("./LawCorpus.sol");
+let instance = {};
 
 contract('LawCorpus', (accounts) => {
-  describe('When user insert a contract into the registry', () => {
-    it("should increment numberOfLaws", () => {
-      return LawCorpus.deployed().then((instance) => {
-        instance.numberOfLaws.call()
-          .then((r) => {
-            assert.equal(r.toNumber(), 0, "numberOfLaws should equal to 0");
-          })
-          .then(() => {
-            instance.insert.sendTransaction('0x3b4a55dd0926b8048266f17ed507907f1a2c1988')
-              .then((tx) => {
-                console.log(`Insert transaction ID: ${tx}`);
-                instance.numberOfLaws.call()
-                  .then((r) => {
-                    assert.equal(r.toNumber(), 1, "numberOfLaws should equal to 1");
-                  })
+  // runs before all tests in this block
+  before(() => {
+    // List all accounts
+    console.log('List all accounts');
+    console.log(accounts);
+
+    // Put the contract instance in a variable
+    LawCorpus.deployed().then((res) => {
+      instance = res;
+    });
+  });
+
+  it("should insert a contract into the registry", () => {
+    return instance.numberOfLaws.call()
+      .then((r) => {
+        assert.equal(r.toNumber(), 0, "numberOfLaws should equal to 0");
+      })
+      .then(() => {
+        instance.insert.sendTransaction('0x3b4a55dd0926b8048266f17ed507907f1a2c1988')
+          .then((tx) => {
+            console.log(`Insert transaction ID: ${tx}`);
+            instance.isLegit.call('0x3b4a55dd0926b8048266f17ed507907f1a2c1988')
+              .then((bool) => assert.ok(bool, 'Contract address should be truthy in isLegit registry'));
+            instance.numberOfLaws.call()
+              .then((r) => {
+                assert.equal(r.toNumber(), 1, "numberOfLaws should equal to 1");
               })
-              .catch((err) => console.log(`Insert failed: ${err}`))
           })
-      });
-    })
+          .catch((err) => console.log(`Insert failed: ${err}`))
+      })
+  });
+
+  it("should remove the inserted contract from the registry", () => {
+    return instance.numberOfLaws.call()
+      .then((r) => {
+        assert.equal(r.toNumber(), 1, "numberOfLaws should equal to 1");
+      })
+      .then(() => {
+        instance.remove.sendTransaction('0x3b4a55dd0926b8048266f17ed507907f1a2c1988')
+          .then((tx) => {
+            console.log(`Remove transaction ID: ${tx}`);
+            instance.isLegit.call('0x3b4a55dd0926b8048266f17ed507907f1a2c1988')
+              .then((bool) => assert.ok(!bool, 'Contract address should be falsy in isLegit registry'));
+            instance.numberOfLaws.call()
+              .then((r) => {
+                assert.equal(r.toNumber(), 0, "numberOfLaws should equal to 0");
+              })
+          })
+          .catch((err) => console.log(`Remove failed: ${err}`))
+      })
   });
 });
