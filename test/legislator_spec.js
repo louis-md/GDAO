@@ -5,7 +5,7 @@ contract('Legislator', (accounts) => {
   // runs before all tests in this block
   before(() => {
     // Put the contract instance in a variable
-    Legislator.deployed().then((res) => {
+    return Legislator.deployed().then((res) => {
       instance = res;
     });
   });

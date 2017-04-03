@@ -18,8 +18,7 @@ contract Valid {
         if (address(legalRegistry) != 0x0 && legalRegistry.contains(address(this))){
             _;
         }
-        else if (owner !=  0x00000000000000000000000000000000deadbeef && msg.sender == owner) {
-
+        else if (owner != 0x00000000000000000000000000000000deadbeef && msg.sender == owner) {
             _;
         }
         else NotLegit(address(this));
@@ -29,7 +28,7 @@ contract Valid {
         if (address(legalRegistry) != 0x0 && legalRegistry.contains(msg.sender)){
             _;
         }
-        else if (owner !=  0x00000000000000000000000000000000deadbeef && msg.sender == owner) {
+        else if (owner != 0x00000000000000000000000000000000deadbeef && msg.sender == owner) {
             _;
         }
         else CallerNotLegit(msg.sender);

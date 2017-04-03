@@ -18,15 +18,15 @@ contract('Valid', (accounts) => {
     return instance.getOwner.call()
       .then((ownerAddr) => {
         assert.equal(ownerAddr, accounts[0], 'ownerAddr should equal accounts[0]');
-        instance.burnOwner()
+        instance.burnOwner.sendTransaction()
           .then(() => {
             instance.getOwner.call()
               .then((burnedOwnerAddr) => {
                 assert.equal(burnedOwnerAddr, '0x00000000000000000000000000000000deadbeef', 'burnedOwnerAddr should equal 0xdeadbeef');
               });
           })
-        .catch((err) => console.log(`failed: ${err}`))
+        .catch((err) => console.log(`failed 1: ${err}`))
       })
-      .catch((err) => console.log(`failed: ${err}`))
+      .catch((err) => console.log(`failed 2: ${err}`))
   });
 });
