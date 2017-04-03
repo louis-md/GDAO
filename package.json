@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/97network/GDAO/issues"
   },
-  "homepage": "https://github.com/97network/GDAO#readme"
+  "homepage": "https://github.com/97network/GDAO#readme",
+  "dependencies": {
+    "truffle": "^3.2.1"
+  }
 }
