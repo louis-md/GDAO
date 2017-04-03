@@ -1,9 +1,9 @@
 pragma solidity ^0.4.8;
 
-import "./LawCorpus.sol";
+import "./Valid.sol";
 import "./Voting.sol";
 
-contract Legislator is valid{
+contract Legislator is Valid{
 
 
     Voting public voting ;
