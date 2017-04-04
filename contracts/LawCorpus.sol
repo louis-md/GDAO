@@ -10,7 +10,6 @@ contract LawCorpus is Valid{
 
     function LawCorpus (){
         legalRegistry = this;
-        owner= msg.sender;
     }
 
     function insert(address _contract) callerLegit {
