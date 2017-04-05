@@ -8,8 +8,6 @@ contract Legislator is Valid {
     Voting public voting ;
 
     function Legislator() {
-        owner = msg.sender;
-        //setRegistry(LawCorpus(corpus));
     }
 
     function setRegistry(LawCorpus _registry) callerLegit legit public {
