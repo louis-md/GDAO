@@ -10,28 +10,33 @@ contract Legislator is Valid {
     function Legislator() {
     }
 
-    function setRegistry(LawCorpus _registry) callerLegit legit public {
-        if (address(legalRegistry) != 0x0) legalRegistry.remove(_registry);
-        legalRegistry = _registry;
-        legalRegistry.insert(_registry);
+    // Set a new LawCorpus contract
+    function setLawCorpus(LawCorpus _lawCorpus) isCallerValid isValid public {
+        if (address(lawCorpus) != 0x0) lawCorpus.remove(_lawCorpus);
+        // Set the _lawCorpus as the new instance of LawCorpus
+        lawCorpus = _lawCorpus;
+        // Set the address of the new law corpus in isLaw mapping
+        lawCorpus.insert(_lawCorpus);
     }
 
-    function setVoting(Voting _voting) callerLegit legit external {
-        legalRegistry.insert(_voting);
-        //if (address(voting) != 0x0) legalRegistry.remove(voting);
+    // Set a new Voting contract
+    function setVoting(Voting _voting) isCallerValid isValid external {
+        lawCorpus.insert(_voting);
+        //if (address(voting) != 0x0) lawCorpus.remove(voting);
+        // Set the new instance of voting
         voting = _voting;
     }
 
-    function getVoting() constant public returns (Voting){
+    function getVoting() constant public returns (Voting) {
         return voting;
     }
 
-    function proposeLaw(Proposal _proposal) callerLegit legit external {
-        voting.propose(_proposal);
+    function proposeLaw(ProposalInterface _proposalInterface) isCallerValid isValid external {
+        voting.propose(_proposalInterface);
     }
 
-    function enactLaw(Proposal _proposal)  external {
-        if (!voting.isPassed(_proposal)) throw;
-        legalRegistry.insert(_proposal.getLaw());
+    function enactLaw(ProposalInterface _proposalInterface) external {
+        if (!voting.isPassed(_proposalInterface)) throw;
+        lawCorpus.insert(_proposalInterface.getLaw());
     }
 }

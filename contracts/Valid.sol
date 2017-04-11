@@ -3,35 +3,35 @@ pragma solidity ^0.4.8;
 import "./LawCorpus.sol";
 
 contract Valid {
-    LawCorpus public legalRegistry;
+    LawCorpus public lawCorpus;
     address public owner; // for a thawing phase
 
-    event NotLegit(address);
-    event CallerNotLegit(address);
+    event NotValid(address);
+    event CallerNotValid(address);
     event Msg(string mes);
 
     function Valid() {
         owner = msg.sender;
     }
 
-    modifier legit {
-        if (address(legalRegistry) != 0x0 && legalRegistry.contains(address(this))){
+    modifier isValid {
+        if (address(lawCorpus) != 0x0 && lawCorpus.contains(address(this))){
             _;
         }
         else if (owner != 0x00000000000000000000000000000000deadbeef && msg.sender == owner) {
             _;
         }
-        else NotLegit(address(this));
+        else NotValid(address(this));
     }
 
-    modifier callerLegit {
-        if (address(legalRegistry) != 0x0 && legalRegistry.contains(msg.sender)){
+    modifier isCallerValid {
+        if (address(lawCorpus) != 0x0 && lawCorpus.contains(msg.sender)){
             _;
         }
         else if (owner != 0x00000000000000000000000000000000deadbeef && msg.sender == owner) {
             _;
         }
-        else CallerNotLegit(msg.sender);
+        else CallerNotValid(msg.sender);
     }
 
     modifier onlyOwner {
@@ -44,7 +44,7 @@ contract Valid {
         return owner;
     }
 
-    function burnOwner() callerLegit {
+    function burnOwner() isCallerValid {
         owner = 0x00000000000000000000000000000000deadbeef; //thawing phase is over
     }
 }

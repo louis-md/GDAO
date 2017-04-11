@@ -19,7 +19,7 @@ contract LawCorpusTest{
       Assert.isTrue(isInRegister(legislator), "Insertion of Legislator failed for owner");
     }
 
-    //This is a low level test to check if 'valid' caller legit works
+    //This is a low level test to check if 'valid' caller isValid works
     function testWhenRegistryOwnerBurned_ThenInsertNotPossible(){
         registry = new LawCorpus();
         //legislator.burnOwner();

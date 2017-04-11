@@ -2,10 +2,10 @@ pragma solidity ^0.4.8;
 
 
 import "./Law.sol";
-import "./Proposal.sol";
+import "./ProposalInterface.sol";
 
-contract Voting is Valid {
+contract VotingInterface is Valid {
 
-    function propose(Proposal _proposal) external;
-    function isPassed(Proposal _proposal) external constant returns (bool);
+    function propose(ProposalInterface _proposalInterface) external;
+    function isPassed(ProposalInterface _proposalInterface) external constant returns (bool);
 }

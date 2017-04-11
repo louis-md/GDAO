@@ -10,7 +10,7 @@ contract TestValid  {
      //burnOwner();
 
      //bool result = mockLegit();
-     //Assert.isFalse(result, "When owner is burned and not in register modifier legit should be false");
+     //Assert.isFalse(result, "When owner is burned and not in register modifier isValid should be false");
    }
 
    function mockLegit()  returns (bool){

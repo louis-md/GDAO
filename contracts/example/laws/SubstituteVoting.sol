@@ -15,9 +15,9 @@ contract SubstituteVoting is Law{
         legislator = _legislator;
     }
 
-    function execute() legit external{
+    function execute() isValid external{
         legislator.setVoting(newVoting);
-        legalRegistry.remove(this);
+        lawCorpus.remove(this);
         suicide(legislator);
     }
 
