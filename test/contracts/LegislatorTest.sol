@@ -5,29 +5,26 @@ import "../../contracts/LawCorpus.sol";
 import "../../contracts/Legislator.sol";
 import "../../contracts/example/laws/AutocraticVoting.sol";
 
-contract LegislatorTest{
+contract LegislatorTest {
+
     Legislator public legislator;
-    LawCorpus public registry;
+    LawCorpus public lawCorpus;
 
-    function beforeEach(){
-      registry = new LawCorpus();
+    function beforeEach() {
+      lawCorpus = new LawCorpus();
       legislator= new Legislator();
-      legislator.setRegistry(registry);
-
+      legislator.setLawCorpus(lawCorpus);
     }
 
-
-    function testWhenLegislatorRegistered_ThenProposalPossible(){
-        var voting = new AutocraticVoting();
-        legislator.setVoting(voting);
-        //proposeLaw();
-      //  Assert.isTrue(isInRegister(voting), "Setting valdid Voting fails");
+    function testWhenLegislatorRegistered_ThenProposalPossible() {
+      var voting = new AutocraticVoting();
+      legislator.setVoting(voting);
+      // proposeLaw();
+      // Assert.isTrue(isInRegister(voting), "Setting valdid Voting fails");
     }
 
     /** helpers **/
-    function isInRegister(address addr) constant returns (bool){
-       return registry.contains(addr);
+    function isInLawCorpus(address addr) constant returns (bool) {
+       return lawCorpus.contains(addr);
     }
-
-
 }
