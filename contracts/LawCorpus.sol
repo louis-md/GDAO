@@ -12,13 +12,13 @@ contract LawCorpus is Valid {
     }
 
     function insert(address _contract) isCallerValid {
-        isLaw[_contract]=true;
-        numberOfLaws++;
+        isLaw[_contract] = true;
+        numberOfLaws = numberOfLaws + 1;
     }
 
     function remove(address _contract) isCallerValid {
         delete isLaw[_contract];
-        numberOfLaws--;
+        numberOfLaws = numberOfLaws - 1;
     }
 
     function contains(address _contract) external constant returns(bool) {

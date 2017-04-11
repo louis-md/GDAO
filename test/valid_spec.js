@@ -4,9 +4,10 @@ let instance = {};
 contract('Valid', (accounts) => {
   // runs before all tests in this block
   before(() => {
-    // List all accounts
-    console.log('List all accounts');
-    console.log(accounts);
+    //console.log('List all accounts');
+    //console.log(accounts);
+    web3.eth.default = accounts[0];
+    //console.log('web3.eth.default', web3.eth.default);
 
     // Put the contract instance in a variable
     return Valid.deployed().then((res) => {
@@ -14,19 +15,11 @@ contract('Valid', (accounts) => {
     });
   });
 
-  it("should burn owner", () => {
-    return instance.getOwner.call()
-      .then((ownerAddr) => {
-        assert.equal(ownerAddr, accounts[0], 'ownerAddr should equal accounts[0]');
-        instance.burnOwner.sendTransaction()
-          .then(() => {
-            instance.getOwner.call()
-              .then((burnedOwnerAddr) => {
-                assert.equal(burnedOwnerAddr, '0x00000000000000000000000000000000deadbeef', 'burnedOwnerAddr should equal 0xdeadbeef');
-              });
-          })
-        .catch((err) => console.log(`failed 1: ${err}`))
-      })
-      .catch((err) => console.log(`failed 2: ${err}`))
+  it("should burn owner", async () => {
+    let ownerAddr = await instance.getOwner.call();
+    assert.equal(ownerAddr, accounts[0], 'ownerAddr should equal accounts[0]');
+    await instance.burnOwner();
+    let burnedOwnerAddr = await instance.getOwner.call();
+    assert.equal(burnedOwnerAddr, '0x00000000000000000000000000000000deadbeef', 'burnedOwnerAddr should equal 0xdeadbeef');
   });
 });

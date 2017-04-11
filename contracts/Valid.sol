@@ -15,7 +15,7 @@ contract Valid {
     }
 
     modifier isValid {
-        if (address(lawCorpus) != 0x0 && lawCorpus.contains(address(this))){
+        if (address(lawCorpus) != 0x0 && lawCorpus.contains(address(this))) {
             _;
         }
         else if (owner != 0x00000000000000000000000000000000deadbeef && msg.sender == owner) {
@@ -25,7 +25,7 @@ contract Valid {
     }
 
     modifier isCallerValid {
-        if (address(lawCorpus) != 0x0 && lawCorpus.contains(msg.sender)){
+        if (address(lawCorpus) != 0x0 && lawCorpus.contains(msg.sender)) {
             _;
         }
         else if (owner != 0x00000000000000000000000000000000deadbeef && msg.sender == owner) {
