@@ -1,27 +1,27 @@
 pragma solidity ^0.4.8;
 
-import "../../Proposal.sol";
-import "../../Voting.sol";
+import "../../ProposalInterface.sol";
+import "../../VotingInterface.sol";
 
 
-contract AutocraticVoting is Voting{
+contract AutocraticVoting is VotingInterface {
 
     mapping (address => bool) passed;
-    function AutocraticVoting(){
+
+    function AutocraticVoting() {
         owner = msg.sender;
     }
 
-    function vote(address _proposal) external{
+    function vote(address _proposal) external {
         if (msg.sender != owner) throw;
         passed[_proposal] = true;
     }
 
-    function propose(Proposal _proposal) external{
+    function propose(ProposalInterface _proposal) external {
         passed[_proposal]=false;
     }
 
-    function isPassed(Proposal _proposal) external constant returns (bool){
+    function isPassed(ProposalInterface _proposal) external constant returns (bool) {
         return passed[_proposal];
     }
-
 }

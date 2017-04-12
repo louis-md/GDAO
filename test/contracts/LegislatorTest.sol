@@ -13,7 +13,7 @@ contract LegislatorTest{
     function beforeEach(){
       registry = new LawCorpus();
       legislator= new Legislator();
-      legislator.setRegistry(registry);
+      legislator.setLawCorpus(registry);
 
     }
 
@@ -21,9 +21,9 @@ contract LegislatorTest{
     function testWhenLegislatorRegistered_ThenProposalPossible(){
       var voting = new AutocraticVoting();
       legislator.setVoting(voting);
-      var Law =
-      var Proposal =
-      legislator.proposeLaw()
+      //var Law =
+      //var Proposal =
+      //legislator.proposeLaw();
 
       //  Assert.isTrue(isInRegister(voting), "Setting valdid Voting fails");
     }

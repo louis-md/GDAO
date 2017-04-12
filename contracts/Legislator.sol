@@ -1,11 +1,11 @@
 pragma solidity ^0.4.8;
 
 import "./Valid.sol";
-import "./Voting.sol";
+import "./VotingInterface.sol";
 
 contract Legislator is Valid {
 
-    Voting public voting ;
+    VotingInterface public voting ;
 
     function Legislator() {
     }
@@ -20,14 +20,14 @@ contract Legislator is Valid {
     }
 
     // Set a new Voting contract
-    function setVoting(Voting _voting) isCallerValid isValid external {
+    function setVoting(VotingInterface _voting) isCallerValid isValid external {
         lawCorpus.insert(_voting);
         //if (address(voting) != 0x0) lawCorpus.remove(voting);
         // Set the new instance of voting
         voting = _voting;
     }
 
-    function getVoting() constant public returns (Voting) {
+    function getVoting() constant public returns (VotingInterface) {
         return voting;
     }
 
