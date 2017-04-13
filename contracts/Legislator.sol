@@ -7,22 +7,23 @@ contract Legislator is Valid {
 
     VotingInterface public voting ;
 
-    function Legislator() {
+    function Legislator(VotingInterface _voting) {
+      voting = _voting;
     }
 
-    // Set a new LawCorpus contract
-    function setLawCorpus(LawCorpus _lawCorpus) isCallerValid isValid public {
-        if (address(lawCorpus) != 0x0) lawCorpus.remove(_lawCorpus);
-        // Set the _lawCorpus as the new instance of LawCorpus
-        lawCorpus = _lawCorpus;
-        // Set the address of the new law corpus in isLaw mapping
-        lawCorpus.insert(_lawCorpus);
+    // Set a new NormCorpus contract
+    function setNormCorpus(NormCorpus _normCorpus) isCallerValid isValid public {
+        if (address(normCorpus) != 0x0) normCorpus.remove(_normCorpus);
+        // Set the _normCorpus as the new instance of NormCorpus
+        normCorpus = _normCorpus;
+        // Set the address of the new norm corpus in isNorm mapping
+        normCorpus.insert(_normCorpus);
     }
 
     // Set a new Voting contract
     function setVoting(VotingInterface _voting) isCallerValid isValid external {
-        lawCorpus.insert(_voting);
-        //if (address(voting) != 0x0) lawCorpus.remove(voting);
+        normCorpus.insert(_voting);
+        //if (address(voting) != 0x0) normCorpus.remove(voting);
         // Set the new instance of voting
         voting = _voting;
     }
@@ -31,12 +32,12 @@ contract Legislator is Valid {
         return voting;
     }
 
-    function proposeLaw(ProposalInterface _proposalInterface) isCallerValid isValid external {
+    function proposeNorm(ProposalInterface _proposalInterface) isCallerValid isValid external {
         voting.propose(_proposalInterface);
     }
 
-    function enactLaw(ProposalInterface _proposalInterface) external {
+    function enactNorm(ProposalInterface _proposalInterface) external {
         if (!voting.isPassed(_proposalInterface)) throw;
-        lawCorpus.insert(_proposalInterface.getLaw());
+        normCorpus.insert(_proposalInterface.getNorm());
     }
 }

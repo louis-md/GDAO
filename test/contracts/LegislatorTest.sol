@@ -1,29 +1,31 @@
 pragma solidity ^0.4.8;
 import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
-import "../../contracts/LawCorpus.sol";
+import "../../contracts/NormCorpus.sol";
 import "../../contracts/Legislator.sol";
-import "../../contracts/example/laws/AutocraticVoting.sol";
+import "../../contracts/example/norms/AutocraticVoting.sol";
 import "../../contracts/example/proposals/TimeConstraintProposal.sol";
 
 contract LegislatorTest{
     Legislator public legislator;
-    LawCorpus public registry;
+    NormCorpus public registry;
 
     function beforeEach(){
-      registry = new LawCorpus();
-      legislator= new Legislator();
-      legislator.setLawCorpus(registry);
+      registry = new NormCorpus();
+      var voting = new AutocraticVoting();
+      legislator= new Legislator(voting);
+
+      legislator.setNormCorpus(registry);
 
     }
 
 
     function testWhenLegislatorRegistered_ThenProposalPossible(){
-      var voting = new AutocraticVoting();
+
       legislator.setVoting(voting);
-      //var Law =
+      //var Norm =
       //var Proposal =
-      //legislator.proposeLaw();
+      //legislator.proposeNorm();
 
       //  Assert.isTrue(isInRegister(voting), "Setting valdid Voting fails");
     }

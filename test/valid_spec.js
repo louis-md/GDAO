@@ -14,7 +14,7 @@ contract('Valid', (accounts) => {
       instance = res;
     });
   });
-
+/**
   it("should burn owner", async () => {
     let ownerAddr = await instance.getOwner.call();
     assert.equal(ownerAddr, accounts[0], 'ownerAddr should equal accounts[0]');
@@ -22,4 +22,5 @@ contract('Valid', (accounts) => {
     let burnedOwnerAddr = await instance.getOwner.call();
     assert.equal(burnedOwnerAddr, '0x00000000000000000000000000000000deadbeef', 'burnedOwnerAddr should equal 0xdeadbeef');
   });
+  */
 });

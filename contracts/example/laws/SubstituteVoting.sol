@@ -1,11 +1,11 @@
 pragma solidity ^0.4.8;
 
-import "../../Law.sol";
+import "../../Valid.sol";
 import "../../VotingInterface.sol";
 import "../../Legislator.sol";
 
 /// @notice "substitute the court by a simple majority vote of party members";
-contract SubstituteVoting is Law {
+contract SubstituteVoting is Valid{
 
     VotingInterface newVoting;
     Legislator legislator;
@@ -18,7 +18,7 @@ contract SubstituteVoting is Law {
 
     function execute() isValid external {
         legislator.setVoting(newVoting);
-        lawCorpus.remove(this);
+        normCorpus.remove(this);
         suicide(legislator);
     }
 }

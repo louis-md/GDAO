@@ -1,16 +1,16 @@
 pragma solidity ^0.4.8;
 import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
-import "../../contracts/LawCorpus.sol";
+import "../../contracts/NormCorpus.sol";
 import "../../contracts/Legislator.sol";
-import "../../contracts/example/laws/AutocraticVoting.sol";
+import "../../contracts/example/norms/AutocraticVoting.sol";
 
-contract LawCorpusTest {
+contract NormCorpusTest {
     Legislator public legislator;
-    LawCorpus public registry;
+    NormCorpus public registry;
 
     function beforeEach() {
-      registry = new LawCorpus();
+      registry = new NormCorpus();
       legislator= new Legislator();
     }
 
@@ -21,9 +21,9 @@ contract LawCorpusTest {
 
     //This is a low level test to check if 'valid' caller isValid works
     function testWhenRegistryOwnerBurned_ThenInsertNotPossible() {
-        registry = new LawCorpus();
+        registry = new NormCorpus();
         //legislator.burnOwner();
-        registry.burnOwner();
+        //registry.burnOwner();
         registry.insert(legislator);
         Assert.isFalse(isInRegister(legislator), "Insertion of Legislator failed after burning owner");
     }

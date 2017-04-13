@@ -1,7 +1,5 @@
 pragma solidity ^0.4.8;
 
-
-import "./Law.sol";
 import "./ProposalInterface.sol";
 
 contract VotingInterface is Valid {
