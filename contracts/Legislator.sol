@@ -14,6 +14,7 @@ contract Legislator is Valid {
 
     // Set a new NormCorpus contract
     function setNormCorpus(AbstractNormCorpus _normCorpus) isCallerValid isValid public {
+        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
         if (address(normCorpus) != 0x0) normCorpus.remove(_normCorpus);
         // Set the _normCorpus as the new instance of NormCorpus
         normCorpus = _normCorpus;
@@ -23,6 +24,7 @@ contract Legislator is Valid {
 
     // Set a new Voting contract
     function setVoting(VotingInterface _voting) isCallerValid isValid external {
+        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
         normCorpus.insert(_voting);
         //if (address(voting) != 0x0) normCorpus.remove(voting);
         // Set the new instance of voting
@@ -39,6 +41,7 @@ contract Legislator is Valid {
 
     function enactNorm(ProposalInterface _proposalInterface) external {
         if (!voting.isPassed(_proposalInterface)) throw;
+        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
         normCorpus.insert(_proposalInterface.getNorm());
     }
 }

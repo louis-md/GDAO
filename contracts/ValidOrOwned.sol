@@ -14,6 +14,7 @@ contract ValidOrOwned is Valid{
     }
 
     modifier isValidOrOwner {
+        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
         if (address(normCorpus) != 0x0 && normCorpus.contains(address(this))) {
             _;
         }
@@ -23,6 +24,7 @@ contract ValidOrOwned is Valid{
     }
 
     modifier isCallerValidOrOwner {
+        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
         if (address(normCorpus) != 0x0 && normCorpus.contains(msg.sender)) {
             _;
         }

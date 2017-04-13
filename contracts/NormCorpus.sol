@@ -8,7 +8,6 @@ contract NormCorpus is AbstractNormCorpus {
     uint public numberOfNorms;
 
     function NormCorpus() {
-        normCorpus = this;
     }
 
     function insert(address _contract) isCallerValid {

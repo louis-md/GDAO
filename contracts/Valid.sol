@@ -1,20 +1,21 @@
 pragma solidity ^0.4.8;
 
-import "./AbstractNormCorpus.sol";
+import "./NormCorpusProxy.sol";
 
 contract Valid {
-    AbstractNormCorpus public normCorpus;
-    address public owner; // for a thawing phase
+    NormCorpusProxy public normCorpusProxy;
+
 
     event NotValid(address);
     event CallerNotValid(address);
     event Msg(string mes);
 
-    function Valid() {
-        owner = msg.sender;
+    function Valid(NormCorpusProxy _normCorpusProxy) {
+        normCorpusProxy = _normCorpusProxy;
     }
 
     modifier isValid {
+        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
         if (address(normCorpus) != 0x0 && normCorpus.contains(address(this))) {
             _;
         }
@@ -22,6 +23,7 @@ contract Valid {
     }
 
     modifier isCallerValid {
+        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
         if (address(normCorpus) != 0x0 && normCorpus.contains(msg.sender)) {
             _;
         }

@@ -2,9 +2,10 @@ pragma solidity ^0.4.8;
 
 import "../../ProposalInterface.sol";
 import "../../VotingInterface.sol";
+import "../../ValidOrOwned.sol";
 
 
-contract AutocraticVoting is VotingInterface {
+contract AutocraticVoting is VotingInterface, ValidOrOwned {
 
     mapping (address => bool) passed;
 

@@ -3,9 +3,9 @@ pragma solidity ^0.4.8;
 
 import "../../ProposalInterface.sol";
 import "../../VotingInterface.sol";
+import "../../ValidOrOwned.sol";
 
-
-contract NaiveMajorityVoting is VotingInterface {
+contract NaiveMajorityVoting is VotingInterface,ValidOrOwned {
     uint voters = 3;
     mapping (uint => uint) votes;
 

@@ -3,16 +3,17 @@ pragma solidity ^0.4.8;
 import "./ValidOrOwned.sol";
 import "./AbstractNormCorpus.sol";
 
-contract NormCorpusProxy is ValidOrOwned{
+contract NormCorpusProxy {
     AbstractNormCorpus instance;
-
+    address public owner;
 
     function NormCorpusProxy(AbstractNormCorpus _instance){
-
+        owner = msg.sender;
         instance = _instance;
     }
 
-    function setInstance(AbstractNormCorpus _instance) isCallerValidOrOwner{
+    function setInstance(AbstractNormCorpus _instance){
+        if (msg.sender != owner) throw;
         instance = _instance;
     }
 
