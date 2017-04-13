@@ -1,3 +1,8 @@
+pragma solidity ^0.4.8;
+
+import "./ValidOrOwned.sol";
+import "./AbstractNormCorpus.sol";
+
 contract NormCorpusProxy is ValidOrOwned{
     AbstractNormCorpus instance;
 

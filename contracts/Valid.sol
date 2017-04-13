@@ -1,9 +1,9 @@
 pragma solidity ^0.4.8;
 
-import "./NormCorpus.sol";
+import "./AbstractNormCorpus.sol";
 
 contract Valid {
-    NormCorpus public normCorpus;
+    AbstractNormCorpus public normCorpus;
     address public owner; // for a thawing phase
 
     event NotValid(address);

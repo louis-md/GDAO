@@ -1,3 +1,5 @@
+pragma solidity ^0.4.8;
+
 import "./ValidOrOwned.sol";
 
 contract AbstractNormCorpus is ValidOrOwned{

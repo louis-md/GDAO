@@ -1,6 +1,7 @@
 pragma solidity ^0.4.8;
 
 import "./ProposalInterface.sol";
+import "./Valid.sol";
 
 contract VotingInterface is Valid {
 

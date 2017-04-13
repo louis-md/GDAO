@@ -2,6 +2,7 @@ pragma solidity ^0.4.8;
 
 import "./Valid.sol";
 import "./VotingInterface.sol";
+import "./AbstractNormCorpus.sol";
 
 contract Legislator is Valid {
 
@@ -12,7 +13,7 @@ contract Legislator is Valid {
     }
 
     // Set a new NormCorpus contract
-    function setNormCorpus(NormCorpus _normCorpus) isCallerValid isValid public {
+    function setNormCorpus(AbstractNormCorpus _normCorpus) isCallerValid isValid public {
         if (address(normCorpus) != 0x0) normCorpus.remove(_normCorpus);
         // Set the _normCorpus as the new instance of NormCorpus
         normCorpus = _normCorpus;
