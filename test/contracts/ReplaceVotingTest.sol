@@ -9,21 +9,29 @@ import "../../contracts/example/norms/SubstituteVoting.sol";
 import "../../contracts/example/proposals/DummyProposal.sol";
 
 contract ReplaceVotingTest{
-    Legislator public legislator;
-    VotingInterface public voting;
-    SubstituteVoting public norm;
+    Legislator legislator;
+    SubstituteVoting norm;
+    NormCorpus normCorpus;
 
     function beforeEach(){
       legislator = Legislator(DeployedAddresses.Legislator());
-      voting = new NaiveMajorityVoting();
-      norm = new SubstituteVoting(legislator, voting);
+      normCorpus = NormCorpus(DeployedAddresses.NormCorpus());
+      var newVoting = new NaiveMajorityVoting();
+      norm = new SubstituteVoting(legislator, newVoting);
     }
 
     function testWhenSubstituteVotingIsEnacted_ThenNewVoting(){
       var proposal = new DummyProposal(norm);
       legislator.proposeNorm(proposal);
-      legislator.enactNorm(proposal);
-      //  Assert.isTrue(isInRegister(voting), "Setting valdid Voting fails");*/
+      bool result = legislator.enactNorm(proposal);
+      Assert.isFalse(result, "Cant be enacted, no vote has been casted");
+      AutocraticVoting oldNorm = AutocraticVoting(legislator.getVoting());
+      oldNorm.vote(proposal);
+      result = legislator.enactNorm(proposal);
+      Assert.isTrue(result, "Must be enacted, voted for");
+      norm.execute();
+      Assert.isTrue(normCorpus.contains(norm), "New norm must be in corpus");
+      //Assert.isFalse(normCorpus.contains(oldNorm), "Old norm must be gone");
     }
 
 

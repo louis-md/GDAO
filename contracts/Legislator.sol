@@ -26,7 +26,7 @@ contract Legislator is Valid {
     function setVoting(VotingInterface _voting) isCallerValid isValid external {
         AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
         normCorpus.insert(_voting);
-        //if (address(voting) != 0x0) normCorpus.remove(voting);
+        if (address(voting) != 0x0) normCorpus.remove(voting);
         // Set the new instance of voting
         voting = _voting;
     }
@@ -39,9 +39,10 @@ contract Legislator is Valid {
         voting.propose(_proposalInterface);
     }
 
-    function enactNorm(ProposalInterface _proposalInterface) external {
-        if (!voting.isPassed(_proposalInterface)) throw;
+    function enactNorm(ProposalInterface _proposalInterface) external returns (bool){
+        if (!voting.isPassed(_proposalInterface)) return false;
         AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
         normCorpus.insert(_proposalInterface.getNorm());
+        return true;
     }
 }
