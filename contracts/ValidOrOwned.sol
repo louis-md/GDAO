@@ -21,6 +21,7 @@ contract ValidOrOwned is Valid {
         else if (owner ==msg.sender) {
             _;
         }
+        else NotValid(address(this));
     }
 
     modifier isCallerValidOrOwner {
@@ -31,6 +32,7 @@ contract ValidOrOwned is Valid {
         else if (owner == msg.sender) {
             _;
         }
+        else CallerNotValid(msg.sender);
     }
 
     modifier onlyOwner(){

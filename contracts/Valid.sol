@@ -3,11 +3,10 @@ pragma solidity ^0.4.8;
 import "./NormCorpusProxy.sol";
 
 contract Valid {
-    NormCorpusProxy public normCorpusProxy = NormCorpusProxy(0xdb8ec8f8f5ad1bf0fe99745959da10d9b06a3bd3);
+    NormCorpusProxy public normCorpusProxy = NormCorpusProxy(0x83151a8baa2615a6a77ebcf54dbae752b941ddf1);
 
     event NotValid(address);
     event CallerNotValid(address);
-    event Msg(string mes);
 
     function Valid() {
 
