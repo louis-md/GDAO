@@ -5,7 +5,6 @@ import "./NormCorpusProxy.sol";
 contract Valid {
     NormCorpusProxy public normCorpusProxy;
 
-
     event NotValid(address);
     event CallerNotValid(address);
     event Msg(string mes);
@@ -29,5 +28,4 @@ contract Valid {
         }
         else CallerNotValid(msg.sender);
     }
-
 }

@@ -7,17 +7,17 @@ contract NormCorpusProxy {
     AbstractNormCorpus instance;
     address public owner;
 
-    function NormCorpusProxy(AbstractNormCorpus _instance){
+    function NormCorpusProxy(AbstractNormCorpus _instance) {
         owner = msg.sender;
         instance = _instance;
     }
 
-    function setInstance(AbstractNormCorpus _instance){
+    function setInstance(AbstractNormCorpus _instance) {
         if (msg.sender != owner) throw;
         instance = _instance;
     }
 
-    function getInstance() public constant returns(AbstractNormCorpus) {
+    function getInstance() public constant returns (AbstractNormCorpus) {
         return instance;
     }
 }
