@@ -2,7 +2,6 @@ var Valid = artifacts.require("./Valid.sol");
 var AbstractNormCorpus = artifacts.require("./AbstractNormCorpus.sol");
 var NormCorpus = artifacts.require("./NormCorpus.sol");
 var Legislator = artifacts.require("./Legislator.sol");
-var Norm = artifacts.require("./Norm.sol");
 var Proposal = artifacts.require("./ProposalInterface.sol");
 var Voting = artifacts.require("./VotingInterface.sol");
 var AutocraticVoting = artifacts.require("../../AutocraticVoting.sol");
@@ -15,13 +14,14 @@ var AutocraticVoting = artifacts.require("../../AutocraticVoting.sol");
 5. As a owner I can now insert the Legislator in the Normcorpus
 */
 module.exports = function (deployer) {
-  deployer.deploy(Valid);
-  deployer.deploy(NormCorpus);
-  deployer.deploy(AutocraticVoting).then(()=>{
-    deployer.deploy(Legislator, AutocraticVoting.address);
-  });
 
-  deployer.deploy(Norm);
+
+  //deployer.deploy(NormCorpus, {overwrite: true});
+  deployer.deploy(AutocraticVoting).then(()=>{
+     deployer.deploy(Legislator, AutocraticVoting.address);
+  });
+  //
+  // deployer.deploy(Norm);
 
   // deployer.deploy(SubstituteVoting);
 };
