@@ -7,5 +7,6 @@ contract ProposalInterface {
     * @dev get the current state of the proposal
     */
     function getState() public constant returns (ProposalState);
+    
     enum ProposalState    {NOTVOTABLE, VOTABLE, PASSED, REJECTED}
 }

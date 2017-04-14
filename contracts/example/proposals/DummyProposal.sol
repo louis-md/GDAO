@@ -2,14 +2,11 @@ pragma solidity ^0.4.8;
 
 import "../../ProposalInterface.sol";
 
-contract TimeConstraintProposal is ProposalInterface{
+contract DummyProposal is ProposalInterface{
     address proposedNorm;
-    uint public deadline;
 
-
-    function TimeConstraintProposal(address _norm, uint _unixDeadline){
+    function DummyProposal(address _norm){
       proposedNorm = _norm;
-      deadline =  _unixDeadline;
     }
 
     function getNorm() constant returns (address){
@@ -17,9 +14,6 @@ contract TimeConstraintProposal is ProposalInterface{
     }
 
     function getState() public constant returns (ProposalState){
-       if (now < deadline)
-          return ProposalState.VOTABLE;
-       //TODO: needs state voting
        return ProposalState.PASSED;
     }
 }
