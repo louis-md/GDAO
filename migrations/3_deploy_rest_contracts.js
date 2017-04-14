@@ -18,7 +18,7 @@ module.exports = function (deployer) {
   deployer.deploy(AutocraticVoting).then(()=>{
      return deployer.deploy(Legislator, AutocraticVoting.address);
   }).then(() => {
-      return NormCorpus.at(NormCorpus.address).insert(Legislator.address, {from: web3.eth.coinbase});
+      return NormCorpus.at(NormCorpus.address).insert(Legislator.address);
   }).then(() => console.log('Legislator inserted into NormCorpus') );
 
 };
