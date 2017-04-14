@@ -10,7 +10,7 @@ contract AutocraticVoting is VotingInterface, ValidOrOwned {
     mapping (address => bool) passed;
 
     function AutocraticVoting() {
-        owner = msg.sender;
+      
     }
 
     function vote(address _proposal) external {
