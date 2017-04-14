@@ -2,7 +2,7 @@ pragma solidity ^0.4.8;
 
 import "./Valid.sol";
 
-contract ValidOrOwned is Valid{
+contract ValidOrOwned is Valid {
     address public owner;
 
 
@@ -28,7 +28,7 @@ contract ValidOrOwned is Valid{
         if (address(normCorpus) != 0x0 && normCorpus.contains(msg.sender)) {
             _;
         }
-        else if (owner ==msg.sender) {
+        else if (owner == msg.sender) {
             _;
         }
     }

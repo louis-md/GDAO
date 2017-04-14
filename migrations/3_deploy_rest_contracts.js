@@ -13,12 +13,10 @@ var AutocraticVoting = artifacts.require("../../AutocraticVoting.sol");
 4. A first Voting system gets instantiated.
 5. As a owner I can now insert the Legislator in the Normcorpus
 */
+
 module.exports = function (deployer) {
-
-  deployer.deploy(AutocraticVoting).then(()=>{
-     return deployer.deploy(Legislator, AutocraticVoting.address);
-  }).then(() => {
-      return NormCorpus.at(NormCorpus.address).insert(Legislator.address, {from: web3.eth.coinbase});
-  }).then(() => console.log('Legislator inserted into NormCorpus') );
-
+  deployer.deploy(AutocraticVoting)
+    .then(() => deployer.deploy(Legislator, AutocraticVoting.address))
+    .then(() => NormCorpus.at(NormCorpus.address).insert(Legislator.address, {from: web3.eth.coinbase}))
+    .then(() => console.log('Legislator inserted into NormCorpus'))
 };
