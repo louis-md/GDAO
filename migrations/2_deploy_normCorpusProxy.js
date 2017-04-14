@@ -11,7 +11,7 @@ let NormCorpusProxy = artifacts.require("./NormCorpusProxy.sol");
 
 
  truffle migrate --to 2
- truffle migrate -f 3
+ truffle migrate --reset
 */
 
 module.exports = function (deployer) {
