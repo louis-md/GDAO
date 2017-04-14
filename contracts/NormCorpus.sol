@@ -10,12 +10,12 @@ contract NormCorpus is AbstractNormCorpus {
     function NormCorpus() {
     }
 
-    function insert(address _contract) isCallerValid {
+    function insert(address _contract) isCallerValidOrOwner {
         isNorm[_contract] = true;
         numberOfNorms = numberOfNorms + 1;
     }
 
-    function remove(address _contract) isCallerValid {
+    function remove(address _contract) isCallerValidOrOwner {
         delete isNorm[_contract];
         numberOfNorms = numberOfNorms - 1;
     }

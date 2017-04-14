@@ -15,13 +15,10 @@ var AutocraticVoting = artifacts.require("../../AutocraticVoting.sol");
 */
 module.exports = function (deployer) {
 
-
-  //deployer.deploy(NormCorpus, {overwrite: true});
   deployer.deploy(AutocraticVoting).then(()=>{
-     deployer.deploy(Legislator, AutocraticVoting.address);
-  });
-  //
-  // deployer.deploy(Norm);
+     return deployer.deploy(Legislator, AutocraticVoting.address);
+  }).then(() => {
+      return NormCorpus.at(NormCorpus.address).insert(Legislator.address, {from: web3.eth.coinbase});
+  }).then(() => console.log('Legislator inserted into NormCorpus') );
 
-  // deployer.deploy(SubstituteVoting);
 };
