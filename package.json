@@ -7,7 +7,10 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "testrpc -s toto",
+    "test": "truffle test",
+    "test:js": "truffle test ./test/javascript/*",
+    "test:sol": "truffle test ./test/solidity/*",
     "migrateWithBSDSed": "sed -i '' 's:0xdb8ec8f8f5ad1bf0fe99745959da10d9b06a3bd3:0x00d76d2853321976999cb0998b6cbb5915085dd8:g' contracts/Valid.sol; truffle migrate --to 2 && truffle migrate --reset",
     "migrateWithGNUSed": "sed -i 's:0xdb8ec8f8f5ad1bf0fe99745959da10d9b06a3bd3:0x00d76d2853321976999cb0998b6cbb5915085dd8:g' contracts/Valid.sol; truffle migrate --to 2 && truffle migrate --reset",
     "migrate": "rm -r build; truffle migrate --to 2 && truffle migrate --reset"
