@@ -2,20 +2,17 @@ pragma solidity ^0.4.8;
 
 import "./AbstractNormCorpus.sol";
 
-contract NormCorpus is AbstractNormCorpus {
+contract NormCorpus /*is AbstractNormCorpus*/ {
 
     mapping(address => bool) public isNorm;
     uint public numberOfNorms;
 
-    function NormCorpus() {
-    }
-
-    function insert(address _contract) isCallerValidOrOwner {
+    function insert(address _contract) /*isCallerValidOrOwner*/ {
         isNorm[_contract] = true;
         numberOfNorms = numberOfNorms + 1;
     }
 
-    function remove(address _contract) isCallerValidOrOwner {
+    function remove(address _contract) /*isCallerValidOrOwner*/ {
         delete isNorm[_contract];
         numberOfNorms = numberOfNorms - 1;
     }

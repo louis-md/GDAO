@@ -1,6 +1,6 @@
 pragma solidity ^0.4.8;
 
-import "./ValidOrOwned.sol";
+//import "./ValidOrOwned.sol";
 import "./AbstractNormCorpus.sol";
 
 contract NormCorpusProxy {

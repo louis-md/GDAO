@@ -1,14 +1,17 @@
 pragma solidity ^0.4.8;
 
+import "./AbstractNormCorpus.sol";
+import "./NormCorpus.sol";
+import "./NormCorpusProxy.sol";
 import "./Valid.sol";
 import "./VotingInterface.sol";
-import "./AbstractNormCorpus.sol";
 
 contract Legislator is Valid {
 
     VotingInterface public voting ;
 
-    function Legislator(VotingInterface _voting) {
+    // Derived() Based()
+    function Legislator(NormCorpusProxy _proxy, VotingInterface _voting) Valid(_proxy) {
       voting = _voting;
     }
 
@@ -17,6 +20,7 @@ contract Legislator is Valid {
         AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
         if (address(normCorpus) != 0x0) normCorpus.remove(_normCorpus);
         // Set the _normCorpus as the new instance of NormCorpus
+        //normCorpus = AbstractNormCorpus(NormCorpus(_normCorpus));
         normCorpus = _normCorpus;
         // Set the address of the new norm corpus in isNorm mapping
         normCorpus.insert(_normCorpus);
