@@ -1,9 +1,9 @@
 pragma solidity ^0.4.8;
 
 import "./ProposalInterface.sol";
-import "./Valid.sol";
+import "./GDAOEnabled.sol";
 
-contract VotingInterface is Valid {
+contract VotingInterface {
 
     function propose(ProposalInterface _proposalInterface) external;
     function isPassed(ProposalInterface _proposalInterface) external constant returns (bool);

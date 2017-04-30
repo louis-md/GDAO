@@ -1,8 +1,8 @@
 pragma solidity ^0.4.8;
 
-import "./Valid.sol";
+import "./GDAOEnabled.sol";
 
-contract ValidOrOwned is Valid {
+contract ValidOrOwned is GDAOEnabled {
     address public owner;
 
 

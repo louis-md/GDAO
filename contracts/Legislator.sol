@@ -1,10 +1,10 @@
 pragma solidity ^0.4.8;
 
-import "./Valid.sol";
+import "./GDAOEnabled.sol";
 import "./VotingInterface.sol";
 import "./AbstractNormCorpus.sol";
 
-contract Legislator is Valid {
+contract Legislator is GDAOEnabled {
 
     VotingInterface public voting ;
 
@@ -13,36 +13,32 @@ contract Legislator is Valid {
     }
 
     // Set a new NormCorpus contract
-    function setNormCorpus(AbstractNormCorpus _normCorpus) isCallerValid isValid public {
-        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
-        if (address(normCorpus) != 0x0) normCorpus.remove(_normCorpus);
+    function setNormCorpus(AbstractNormCorpus _normCorpus) public {
+        AbstractNormCorpus normCorpus = GDAO;
+        if (address(normCorpus) != 0x0) normCorpus.deleteNorm(_normCorpus);
         // Set the _normCorpus as the new instance of NormCorpus
         normCorpus = _normCorpus;
         // Set the address of the new norm corpus in isNorm mapping
-        normCorpus.insert(_normCorpus);
+        normCorpus.insertProposal(_normCorpus);
     }
 
     // Set a new Voting contract
-    function setVoting(VotingInterface _voting) isCallerValid isValid external {
-        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
-        normCorpus.insert(_voting);
-        if (address(voting) != 0x0) normCorpus.remove(voting);
+    function setVoting(VotingInterface _voting) external {
+        AbstractNormCorpus normCorpus = GDAO;
+        normCorpus.insertProposal(_voting);
+        if (address(voting) != 0x0) normCorpus.deleteNorm(voting);
         // Set the new instance of voting
         voting = _voting;
     }
 
-    function getVoting() constant public returns (VotingInterface) {
-        return voting;
-    }
-
-    function proposeNorm(ProposalInterface _proposalInterface) isCallerValid isValid external {
+    function proposeNorm(ProposalInterface _proposalInterface) external {
         voting.propose(_proposalInterface);
     }
 
     function enactNorm(ProposalInterface _proposalInterface) external returns (bool){
         if (!voting.isPassed(_proposalInterface)) return false;
-        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
-        normCorpus.insert(_proposalInterface.getNorm());
+        AbstractNormCorpus normCorpus = GDAO;
+        normCorpus.insertProposal(_proposalInterface.getNorm());
         return true;
     }
 }

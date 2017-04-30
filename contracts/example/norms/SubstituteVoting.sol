@@ -1,25 +1,24 @@
 pragma solidity ^0.4.8;
 
-import "../../Valid.sol";
+import "../../GDAOEnabled.sol";
 import "../../VotingInterface.sol";
 import "../../Legislator.sol";
 
 /// @notice "substitute the court by a simple majority vote of party members";
-contract SubstituteVoting is Valid{
+contract SubstituteVoting is GDAOEnabled {
 
     VotingInterface newVoting;
     Legislator legislator;
 
     function SubstituteVoting(Legislator _legislator, VotingInterface _newvoting) {
-
         newVoting = _newvoting;
         legislator = _legislator;
     }
 
-    function execute() isValid external {
+    function execute() external {
         legislator.setVoting(newVoting);
-        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
-        normCorpus.remove(this);
+        AbstractNormCorpus normCorpus = GDAO;
+        normCorpus.deleteNorm(this);
         suicide(legislator);
     }
 }

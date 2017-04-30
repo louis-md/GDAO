@@ -3,14 +3,13 @@ pragma solidity ^0.4.8;
 
 import "../../ProposalInterface.sol";
 import "../../VotingInterface.sol";
-import "../../ValidOrOwned.sol";
 
-contract NaiveMajorityVoting is VotingInterface,ValidOrOwned {
+contract NaiveMajorityVoting is VotingInterface {
     uint voters = 3;
     mapping (address => uint) votes;
 
     function NaiveMajorityVoting(){
-        owner = msg.sender;
+        //owner = msg.sender;
     }
 
     function vote(ProposalInterface _proposalInterface) external {
