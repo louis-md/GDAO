@@ -12,7 +12,7 @@ module.exports = function (deployer) {
     .then(() => deployer.deploy(AutocraticVoting))
     .then(() => console.log(`AutocraticVoting deployed at: ${AutocraticVoting.address}`))
     .then(() => deployer.deploy(Legislator, NormCorpusProxy.address, AutocraticVoting.address))
-    .then(() => console.log(`Legislator deployed at: ${Legislator.address}`))
+    .then(() => console.log(`Legislator deployed at: ${NormCorpus.at(NormCorpus.address).owner.call()}`))
     .then(() => NormCorpus.at(NormCorpus.address).insert(Legislator.address))
     .then(() => console.log(`Legislator ${Legislator.address} inserted into NormCorpus ${NormCorpus.address}`))
 };

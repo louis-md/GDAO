@@ -1,15 +1,16 @@
 pragma solidity ^0.4.8;
 
 import "./Valid.sol";
+import "./Owned.sol";
 
-contract ValidOrOwned is Valid {
+contract ValidOrOwned is Valid, Owned {
     address public owner;
 
 
     /**
      * Will be called automatically by all inheriting contracts.
      */
-    function ValidOrOwned(){
+    function ValidOrOwned() Owned(){
         owner = msg.sender;
     }
 
@@ -35,21 +36,4 @@ contract ValidOrOwned is Valid {
         else CallerNotValid(msg.sender);
     }
 
-    modifier onlyOwner(){
-        if (owner != msg.sender) return;
-        _;
-    }
-
-    function getOwner() external returns (address) {
-        return owner;
-    }
-
-     function setOwner(address _newOwner) external returns (address) {
-        owner = _newOwner;
-    }
-
-    function burnOwner() onlyOwner {
-
-        owner = 0x00000000000000000000000000000000DeaDBeef; //thawing phase is over
-    }
 }

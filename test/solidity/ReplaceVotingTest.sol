@@ -18,8 +18,9 @@ contract ReplaceVotingTest{
     function beforeEach(){
       legislator = Legislator(DeployedAddresses.Legislator());
       normCorpus = NormCorpus(DeployedAddresses.NormCorpus());
-      newVoting = new NaiveMajorityVoting(NormCorpusProxy(DeployedAddresses.NormCorpusProxy()));
-      norm = new SubstituteVoting(legislator, newVoting, NormCorpusProxy(DeployedAddresses.NormCorpusProxy()));
+      var proxy = NormCorpusProxy(DeployedAddresses.NormCorpusProxy());
+      newVoting = new NaiveMajorityVoting(proxy);
+      norm = new SubstituteVoting(legislator, newVoting, proxy);
     }
 
     function testWhenSubstituteVotingIsEnacted_ThenNewVoting(){
@@ -36,7 +37,7 @@ contract ReplaceVotingTest{
       Assert.isFalse(normCorpus.contains(norm), "Norm had to remove itself");
       Assert.isTrue(normCorpus.contains(newVoting), "NaiveMajorityVoting is now a norm");
       Assert.isTrue(address(legislator.getVoting())== address(newVoting), "new Voting must have been installed");
-      //Assert.isFalse(normCorpus.contains(oldNorm), "Old norm must be gone");
+      //Assert.isFalse(normCorpus.contains(oldNorm), "Old norm must be gone");*/
     }
 
 

@@ -5,11 +5,11 @@ import "../../VotingInterface.sol";
 import "../../ValidOrOwned.sol";
 
 
-contract AutocraticVoting /*is VotingInterface, ValidOrOwned*/ {
+contract AutocraticVoting is VotingInterface, ValidOrOwned {
 
     mapping (address => bool) passed;
 
-    function AutocraticVoting() {
+    function AutocraticVoting(NormCorpusProxy _proxy) Valid(_proxy){
 
     }
 
