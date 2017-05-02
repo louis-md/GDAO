@@ -8,7 +8,7 @@ import "./VotingInterface.sol";
 
 contract Legislator is Valid {
 
-    VotingInterface public voting ;
+    VotingInterface public voting;
 
     // Derived() Based()
     function Legislator(NormCorpusProxy _proxy, VotingInterface _voting) Valid(_proxy) {
@@ -46,7 +46,10 @@ contract Legislator is Valid {
     function enactNorm(ProposalInterface _proposalInterface) external returns (bool){
         if (!voting.isPassed(_proposalInterface)) return false;
         AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
-        normCorpus.insert(_proposalInterface.getNorm());
+        address norm = _proposalInterface.getNorm();
+        normCorpus.insert(norm);
+        NormEnacted(norm);
         return true;
     }
+    event NormEnacted(address indexed norm);
 }

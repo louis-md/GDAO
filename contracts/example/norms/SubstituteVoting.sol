@@ -8,7 +8,7 @@ import "../../NormCorpusProxy.sol";
 /// @notice "substitute the court by a simple majority vote of party members";
 contract SubstituteVoting is Valid{
 
-    VotingInterface newVoting;
+    VotingInterface public newVoting;
     Legislator legislator;
 
     function SubstituteVoting(Legislator _legislator, VotingInterface _newvoting, NormCorpusProxy _proxy) Valid(_proxy){
