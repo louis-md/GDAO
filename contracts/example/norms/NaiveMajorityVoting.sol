@@ -4,12 +4,13 @@ pragma solidity ^0.4.8;
 import "../../ProposalInterface.sol";
 import "../../VotingInterface.sol";
 import "../../ValidOrOwned.sol";
+import "../../NormCorpusProxy.sol";
 
 contract NaiveMajorityVoting is VotingInterface,ValidOrOwned {
     uint voters = 3;
     mapping (address => uint) votes;
 
-    function NaiveMajorityVoting(){
+    function NaiveMajorityVoting(NormCorpusProxy _proxy) Valid(_proxy){
         owner = msg.sender;
     }
 
@@ -25,4 +26,5 @@ contract NaiveMajorityVoting is VotingInterface,ValidOrOwned {
     function isPassed(ProposalInterface _proposalInterface) external constant returns (bool) {
         return votes[_proposalInterface] > voters;
     }
+
 }

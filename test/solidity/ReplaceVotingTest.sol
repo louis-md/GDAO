@@ -2,6 +2,7 @@ pragma solidity ^0.4.8;
 import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
 import "../../contracts/NormCorpus.sol";
+import "../../contracts/NormCorpusProxy.sol";
 import "../../contracts/Legislator.sol";
 import "../../contracts/example/norms/AutocraticVoting.sol";
 import "../../contracts/example/norms/NaiveMajorityVoting.sol";
@@ -16,8 +17,8 @@ contract ReplaceVotingTest{
     function beforeEach(){
       legislator = Legislator(DeployedAddresses.Legislator());
       normCorpus = NormCorpus(DeployedAddresses.NormCorpus());
-      var newVoting = new NaiveMajorityVoting();
-      norm = new SubstituteVoting(legislator, newVoting);
+      var newVoting = new NaiveMajorityVoting(NormCorpusProxy(DeployedAddresses.NormCorpusProxy()));
+      norm = new SubstituteVoting(legislator, newVoting, NormCorpusProxy(DeployedAddresses.NormCorpusProxy()));
     }
 
     function testWhenSubstituteVotingIsEnacted_ThenNewVoting(){

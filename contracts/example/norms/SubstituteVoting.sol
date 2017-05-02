@@ -3,6 +3,7 @@ pragma solidity ^0.4.8;
 import "../../Valid.sol";
 import "../../VotingInterface.sol";
 import "../../Legislator.sol";
+import "../../NormCorpusProxy.sol";
 
 /// @notice "substitute the court by a simple majority vote of party members";
 contract SubstituteVoting is Valid{
@@ -10,7 +11,7 @@ contract SubstituteVoting is Valid{
     VotingInterface newVoting;
     Legislator legislator;
 
-    function SubstituteVoting(Legislator _legislator, VotingInterface _newvoting) {
+    function SubstituteVoting(Legislator _legislator, VotingInterface _newvoting, NormCorpusProxy _proxy) Valid(_proxy){
 
         newVoting = _newvoting;
         legislator = _legislator;
