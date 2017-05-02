@@ -19,7 +19,7 @@ contract SubstituteVoting is Valid{
 
     function execute() isValid external {
         legislator.setVoting(newVoting);
-        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
+        NormCorpusInterface normCorpus = normCorpusProxy.getInstance();
         normCorpus.remove(this);
         suicide(legislator);
     }

@@ -1,10 +1,10 @@
 pragma solidity ^0.4.8;
 
-import "./AbstractNormCorpus.sol";
+import "./NormCorpusInterface.sol";
 import "./NormCorpusProxy.sol";
 import "./Owned.sol";
 
-contract NormCorpus is AbstractNormCorpus, Owned {
+contract NormCorpus is NormCorpusInterface, Owned {
 
     mapping(address => bool) public isNorm;
     uint public numberOfNorms;

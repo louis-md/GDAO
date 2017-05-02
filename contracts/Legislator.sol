@@ -1,6 +1,6 @@
 pragma solidity ^0.4.8;
 
-import "./AbstractNormCorpus.sol";
+import "./NormCorpusInterface.sol";
 import "./NormCorpus.sol";
 import "./NormCorpusProxy.sol";
 import "./Valid.sol";
@@ -16,11 +16,11 @@ contract Legislator is Valid {
     }
 
     // Set a new NormCorpus contract
-    function setNormCorpus(AbstractNormCorpus _normCorpus) isCallerValid isValid public {
-        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
+    function setNormCorpus(NormCorpusInterface _normCorpus) isCallerValid isValid public {
+        NormCorpusInterface normCorpus = normCorpusProxy.getInstance();
         if (address(normCorpus) != 0x0) normCorpus.remove(_normCorpus);
         // Set the _normCorpus as the new instance of NormCorpus
-        //normCorpus = AbstractNormCorpus(NormCorpus(_normCorpus));
+        //normCorpus = NormCorpusInterface(NormCorpus(_normCorpus));
         normCorpus = _normCorpus;
         // Set the address of the new norm corpus in isNorm mapping
         normCorpus.insert(_normCorpus);
@@ -28,7 +28,7 @@ contract Legislator is Valid {
 
     // Set a new Voting contract
     function setVoting(VotingInterface _voting) isCallerValid isValid external {
-        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
+        NormCorpusInterface normCorpus = normCorpusProxy.getInstance();
         normCorpus.insert(_voting);
         if (address(voting) != 0x0) normCorpus.remove(voting);
         // Set the new instance of voting
@@ -45,7 +45,7 @@ contract Legislator is Valid {
 
     function enactNorm(ProposalInterface _proposalInterface) external returns (bool){
         if (!voting.isPassed(_proposalInterface)) return false;
-        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
+        NormCorpusInterface normCorpus = normCorpusProxy.getInstance();
         address norm = _proposalInterface.getNorm();
         normCorpus.insert(norm);
         NormEnacted(norm);

@@ -13,7 +13,7 @@ contract Valid {
     }
 
     modifier isValid {
-        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
+        NormCorpusInterface normCorpus = normCorpusProxy.getInstance();
         if (address(normCorpus) != 0x0 && normCorpus.contains(address(this))) {
             _;
         }
@@ -21,7 +21,7 @@ contract Valid {
     }
 
     modifier isCallerValid {
-        AbstractNormCorpus normCorpus = normCorpusProxy.getInstance();
+        NormCorpusInterface normCorpus = normCorpusProxy.getInstance();
         if (address(normCorpus) != 0x0 && normCorpus.contains(msg.sender)) {
             _;
         }
