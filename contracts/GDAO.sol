@@ -1,17 +1,18 @@
 pragma solidity ^0.4.8;
 
 import "./NormCorpusInterface.sol";
+import "./Owned.sol";
 
-contract GDAO {
+contract GDAO is Owned{
     NormCorpusInterface instance;
-    address public owner;
+
 
     function GDAO(NormCorpusInterface _instance) {
         owner = msg.sender;
         instance = _instance;
     }
 
-    function setInstance(NormCorpusInterface _instance) {
+    function setInstance(NormCorpusInterface _instance)  {
         if (msg.sender != owner) throw;
         instance = _instance;
     }

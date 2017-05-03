@@ -21,6 +21,9 @@ contract ReplaceVotingTest{
       var proxy = GDAO(DeployedAddresses.GDAO());
       newVoting = new NaiveMajorityVoting(proxy);
       norm = new SubstituteVoting(legislator, newVoting, proxy);
+      normCorpus.burnOwner();
+      proxy.burnOwner();
+      
     }
 
     function testWhenSubstituteVotingIsEnacted_ThenNewVoting(){
