@@ -5,7 +5,7 @@ import "../../contracts/NormCorpus.sol";
 import "../../contracts/GDAO.sol";
 import "../../contracts/Legislator.sol";
 import "../../contracts/example/norms/AutocraticVoting.sol";
-import "../../contracts/example/norms/NaiveMajorityVoting.sol";
+import "../../contracts/example/norms/SimpleMajorityVoting.sol";
 import "../../contracts/example/norms/SubstituteVoting.sol";
 import "../../contracts/example/proposals/DummyProposal.sol";
 
@@ -13,13 +13,13 @@ contract ReplaceVotingTest{
     Legislator legislator;
     SubstituteVoting norm;
     NormCorpus normCorpus;
-    NaiveMajorityVoting newVoting;
+    SimpleMajorityVoting newVoting;
 
     function beforeEach(){
       legislator = Legislator(DeployedAddresses.Legislator());
       normCorpus = NormCorpus(DeployedAddresses.NormCorpus());
       var proxy = GDAO(DeployedAddresses.GDAO());
-      newVoting = new NaiveMajorityVoting(proxy);
+      newVoting = new SimpleMajorityVoting(proxy);
       norm = new SubstituteVoting(legislator, newVoting, proxy);
       normCorpus.burnOwner();
       proxy.burnOwner();
@@ -38,8 +38,13 @@ contract ReplaceVotingTest{
       Assert.isTrue(normCorpus.contains(norm), "New norm must be in corpus");
       norm.execute();
       Assert.isFalse(normCorpus.contains(norm), "Norm had to remove itself");
-      Assert.isTrue(normCorpus.contains(newVoting), "NaiveMajorityVoting is now a norm");
+      Assert.isTrue(normCorpus.contains(newVoting), "SimpleMajorityVoting is now a norm");
       Assert.isTrue(address(legislator.getVoting())== address(newVoting), "new Voting must have been installed");
+      legislator.proposeNorm(proposal);
+      newVoting.vote(proposal);
+      newVoting.vote(proposal);
+      var nbVoters = newVoting.getVotersNumber();
+      Assert.equal(nbVoters, 2, "Should have 2 voters"); //First test for SimpleMajorityVoting
       //Assert.isFalse(normCorpus.contains(oldNorm), "Old norm must be gone");*/
     }
 
