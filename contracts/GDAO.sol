@@ -2,7 +2,12 @@ pragma solidity ^0.4.8;
 
 import "./NormCorpusInterface.sol";
 
-contract GDAO{
+/*
+** This is GDAO's main contract and only fixed point.
+** It's linked to the NormCorpus since the deployment of the contract.
+*/
+contract GDAO {
+
     NormCorpusInterface instance;
 
 
