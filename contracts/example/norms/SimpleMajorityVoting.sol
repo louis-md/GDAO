@@ -8,7 +8,7 @@ import "../../GDAO.sol";
 
 /*
 ** This is a first implementation of a majority vote.
-** The simple majority voting rule increments the "voters" number for each vote.
+** The simple majority voting rule increments the voters count number for each vote.
 ** The proposal is considered to be passed if it has at least (voters / 2 + 1) votes.
 */
 
