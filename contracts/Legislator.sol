@@ -2,7 +2,7 @@ pragma solidity ^0.4.8;
 
 import "./NormCorpusInterface.sol";
 import "./NormCorpus.sol";
-import "./NormCorpusProxy.sol";
+import "./GDAO.sol";
 import "./Valid.sol";
 import "./VotingInterface.sol";
 
@@ -11,7 +11,7 @@ contract Legislator is Valid {
     VotingInterface public voting;
 
     // Derived() Based()
-    function Legislator(NormCorpusProxy _proxy, VotingInterface _voting) Valid(_proxy) {
+    function Legislator(GDAO _proxy, VotingInterface _voting) Valid(_proxy) {
       voting = _voting;
     }
 

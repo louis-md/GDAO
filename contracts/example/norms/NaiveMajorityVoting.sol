@@ -4,13 +4,13 @@ pragma solidity ^0.4.8;
 import "../../ProposalInterface.sol";
 import "../../VotingInterface.sol";
 import "../../ValidOrOwned.sol";
-import "../../NormCorpusProxy.sol";
+import "../../GDAO.sol";
 
 contract NaiveMajorityVoting is VotingInterface,ValidOrOwned {
     uint voters = 3;
     mapping (address => uint) votes;
 
-    function NaiveMajorityVoting(NormCorpusProxy _proxy) Valid(_proxy){
+    function NaiveMajorityVoting(GDAO _proxy) Valid(_proxy){
         owner = msg.sender;
     }
 

@@ -9,7 +9,7 @@ contract AutocraticVoting is VotingInterface, ValidOrOwned {
 
     mapping (address => bool) passed;
 
-    function AutocraticVoting(NormCorpusProxy _proxy) Valid(_proxy){
+    function AutocraticVoting(GDAO _proxy) Valid(_proxy){
 
     }
 

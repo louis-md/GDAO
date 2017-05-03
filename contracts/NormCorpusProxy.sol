@@ -2,11 +2,11 @@ pragma solidity ^0.4.8;
 
 import "./NormCorpusInterface.sol";
 
-contract NormCorpusProxy {
+contract GDAO {
     NormCorpusInterface instance;
     address public owner;
 
-    function NormCorpusProxy(NormCorpusInterface _instance) {
+    function GDAO(NormCorpusInterface _instance) {
         owner = msg.sender;
         instance = _instance;
     }

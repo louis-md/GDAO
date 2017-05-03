@@ -1,14 +1,14 @@
 pragma solidity ^0.4.8;
 
-import "./NormCorpusProxy.sol";
+import "./GDAO.sol";
 
 contract Valid {
-    NormCorpusProxy public normCorpusProxy;
+    GDAO public normCorpusProxy;
 
     event NotValid(address);
     event CallerNotValid(address);
 
-    function Valid(NormCorpusProxy _proxy) {
+    function Valid(GDAO _proxy) {
       normCorpusProxy = _proxy;
     }
 

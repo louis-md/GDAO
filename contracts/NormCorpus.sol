@@ -1,7 +1,7 @@
 pragma solidity ^0.4.8;
 
 import "./NormCorpusInterface.sol";
-import "./NormCorpusProxy.sol";
+import "./GDAO.sol";
 import "./Owned.sol";
 
 contract NormCorpus is NormCorpusInterface, Owned {
