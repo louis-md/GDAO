@@ -7,27 +7,36 @@ import "../../contracts/Legislator.sol";
 import "../../contracts/example/norms/AutocraticVoting.sol";
 
 contract NormCorpusTest {
-    Legislator public legislator;
+
     NormCorpus public registry;
 
     function beforeEach() {
       var normCorpus = NormCorpus(DeployedAddresses.NormCorpus());
       var proxy = NormCorpusProxy(DeployedAddresses.NormCorpusProxy());
       registry = new NormCorpus();
-      legislator= new Legislator(proxy, new AutocraticVoting(proxy));
+
     }
 
+    //Inserting must be possible
     function testThawedInsert() {
-      registry.insert(legislator);
-      Assert.isTrue(isInRegister(legislator), "Insertion of Legislator failed for owner");
+      registry.insert(this);
+      Assert.isTrue(isInRegister(this), "Insertion of this failed for owner");
     }
 
-    //This is a low level test to check if 'valid' caller isValid works
+    //This is a low level test to check if burning owner works
     function testWhenRegistryOwnerBurned_ThenInsertNotPossible() {
         registry.burnOwner();
-        registry.insert(legislator);
-        Assert.isFalse(isInRegister(legislator), "Insertion of Legislator failed after burning owner");
+        registry.insert(this);
+        Assert.isFalse(isInRegister(this), "Insertion of this cant work after burning owner");
     }
+
+    //Inserting must be possible
+    function testCallerValidInsert() {
+      registry.insert(this);
+      registry.burnOwner();
+      Assert.isTrue(isInRegister(this), "Insertion of this failed for owner");
+    }
+
 
     /** helpers **/
     function isInRegister(address addr) constant returns (bool) {
