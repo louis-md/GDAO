@@ -23,7 +23,6 @@ contract ReplaceVotingTest{
       norm = new SubstituteVoting(legislator, newVoting, proxy);
       normCorpus.burnOwner();
       proxy.burnOwner();
-      
     }
 
     function testWhenSubstituteVotingIsEnacted_ThenNewVoting(){
