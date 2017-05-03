@@ -7,4 +7,5 @@ contract NormCorpusInterface {
     function remove(address _contract);
 
     function contains(address _contract) public constant returns (bool);
+
 }
