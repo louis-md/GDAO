@@ -10,13 +10,13 @@ import "../../contracts/example/norms/SubstituteVoting.sol";
 import "../../contracts/example/proposals/DummyProposal.sol";
 
 contract ReplaceVotingTest{
-    Legislator legislator;
+    LegislatorInterface legislator;
     SubstituteVoting norm;
     NormCorpus normCorpus;
     SimpleMajorityVoting newVoting;
 
     function beforeEach(){
-      legislator = Legislator(DeployedAddresses.Legislator());
+      legislator = LegislatorInterface(DeployedAddresses.Legislator());
       normCorpus = NormCorpus(DeployedAddresses.NormCorpus());
       var proxy = GDAO(DeployedAddresses.GDAO());
       newVoting = new SimpleMajorityVoting(proxy);

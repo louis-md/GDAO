@@ -10,14 +10,14 @@ import "../../contracts/example/proposals/DummyProposal.sol";
 import "../../contracts/example/corpuses/IterableNormCorpus.sol";
 
 contract ReplaceNormCorpusTest{
-    Legislator legislator;
+    LegislatorInterface legislator;
     SubstituteNormCorpus norm;
     NormCorpus normCorpus;
     IterableNormCorpus newCorpus;
     GDAO proxy;
 
     function beforeEach(){
-      legislator = Legislator(DeployedAddresses.Legislator());
+      legislator = LegislatorInterface(DeployedAddresses.Legislator());
       normCorpus = NormCorpus(DeployedAddresses.NormCorpus());
       proxy = GDAO(DeployedAddresses.GDAO());
       newCorpus = new IterableNormCorpus();

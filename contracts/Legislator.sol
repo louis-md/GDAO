@@ -5,8 +5,9 @@ import "./NormCorpus.sol";
 import "./GDAO.sol";
 import "./Valid.sol";
 import "./VotingInterface.sol";
+import "./LegislatorInterface.sol";
 
-contract Legislator is Valid {
+contract Legislator is Valid, LegislatorInterface {
 
     VotingInterface public voting;
 
@@ -51,5 +52,5 @@ contract Legislator is Valid {
         NormEnacted(norm);
         return true;
     }
-    event NormEnacted(address indexed norm);
+
 }

@@ -2,16 +2,16 @@ pragma solidity ^0.4.8;
 
 import "../../Valid.sol";
 import "../../VotingInterface.sol";
-import "../../Legislator.sol";
+import "../../LegislatorInterface.sol";
 import "../../GDAO.sol";
 
 /// @notice "substitute the court by a simple majority vote of party members";
 contract SubstituteVoting is Valid{
 
     VotingInterface public newVoting;
-    Legislator legislator;
+    LegislatorInterface legislator;
 
-    function SubstituteVoting(Legislator _legislator, VotingInterface _newvoting, GDAO _proxy) Valid(_proxy){
+    function SubstituteVoting(LegislatorInterface _legislator, VotingInterface _newvoting, GDAO _proxy) Valid(_proxy){
 
         newVoting = _newvoting;
         legislator = _legislator;
