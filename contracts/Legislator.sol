@@ -3,11 +3,11 @@ pragma solidity ^0.4.8;
 import "./NormCorpusInterface.sol";
 import "./NormCorpus.sol";
 import "./GDAO.sol";
-import "./Valid.sol";
+import "./ValidOrOwned.sol";
 import "./VotingInterface.sol";
 import "./LegislatorInterface.sol";
 
-contract Legislator is Valid, LegislatorInterface {
+contract Legislator is ValidOrOwned, LegislatorInterface {
 
     VotingInterface public voting;
 
@@ -16,16 +16,6 @@ contract Legislator is Valid, LegislatorInterface {
       voting = _voting;
     }
 
-    // Set a new NormCorpus contract
-    function setNormCorpus(NormCorpusInterface _normCorpus) isCallerValid isValid public {
-        NormCorpusInterface normCorpus = normCorpusProxy.getInstance();
-        if (address(normCorpus) != 0x0) normCorpus.remove(_normCorpus);
-        // Set the _normCorpus as the new instance of NormCorpus
-        //normCorpus = NormCorpusInterface(NormCorpus(_normCorpus));
-        normCorpus = _normCorpus;
-        // Set the address of the new norm corpus in isNorm mapping
-        normCorpus.insert(_normCorpus);
-    }
 
     // Set a new Voting contract
     function setVoting(VotingInterface _voting) isCallerValid isValid external {

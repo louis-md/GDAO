@@ -22,6 +22,7 @@ contract ReplaceVotingTest{
       newVoting = new SimpleMajorityVoting(proxy);
       norm = new SubstituteVoting(legislator, newVoting, proxy);
       normCorpus.burnOwner();
+      Legislator(legislator).burnOwner();
     }
 
     function testWhenSubstituteVotingIsEnacted_ThenNewVoting(){
