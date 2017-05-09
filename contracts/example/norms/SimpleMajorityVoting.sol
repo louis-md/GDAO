@@ -30,8 +30,7 @@ contract SimpleMajorityVoting is VotingInterface, ValidOrOwned {
     }
 
     function vote(ProposalInterface _proposalInterface) external {
-        if (votes[_proposalInterface].init == true)
-		{	
+        if (votes[_proposalInterface].init == true) {
 			votes[_proposalInterface].votes++;
 			voters++;
 		}
