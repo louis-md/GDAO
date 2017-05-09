@@ -14,8 +14,15 @@ import "../../GDAO.sol";
 
 
 contract SimpleMajorityVoting is VotingInterface, ValidOrOwned {
+	
+	struct PropState {
+	uint votes;
+	bool init;
+	}
+
+	PropState Proposal;	
     uint voters = 0;
-    mapping (address => uint) votes;
+    mapping (address => PropState) votes;
 
 
 // Constructor function is empty
@@ -23,22 +30,30 @@ contract SimpleMajorityVoting is VotingInterface, ValidOrOwned {
     }
 
     function vote(ProposalInterface _proposalInterface) external {
-        votes[_proposalInterface]++;
-		voters++;
+        if (votes[_proposalInterface].init == true)
+		{	
+			votes[_proposalInterface].votes++;
+			voters++;
+		}
     }
 
     function propose(ProposalInterface _proposalInterface) external{
-		votes[_proposalInterface] = 0;
+			votes[_proposalInterface].init = true;
+			votes[_proposalInterface].votes = 0; //Probably useless
     }
 
     function isPassed(ProposalInterface proposalToCheck) external constant returns (bool) {
         if (voters < 2) 
 			throw;
-		return (votes[proposalToCheck] > (voters / 2));
+		return (votes[proposalToCheck].votes > (voters / 2));
     }
 
 
 // The two functions below are for informations purpose only.
+
+	function getProposalVotes(ProposalInterface _proposalInterface) external returns (uint){
+		return (votes[_proposalInterface].votes);
+	}
 
 	function getVotersNumber() external returns (uint){
 		return (voters);

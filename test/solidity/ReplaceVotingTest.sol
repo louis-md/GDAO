@@ -39,13 +39,5 @@ contract ReplaceVotingTest{
       Assert.isFalse(normCorpus.contains(norm), "Norm had to remove itself");
       Assert.isTrue(normCorpus.contains(newVoting), "SimpleMajorityVoting is now a norm");
       Assert.isTrue(address(legislator.getVoting())== address(newVoting), "new Voting must have been installed");
-      legislator.proposeNorm(proposal);
-      newVoting.vote(proposal);
-      newVoting.vote(proposal);
-      var nbVoters = newVoting.getVotersNumber();
-      Assert.equal(nbVoters, 2, "Should have 2 voters"); //First test for SimpleMajorityVoting
-      //Assert.isFalse(normCorpus.contains(oldNorm), "Old norm must be gone");*/
     }
-
-
 }
