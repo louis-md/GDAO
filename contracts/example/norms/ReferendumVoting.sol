@@ -8,7 +8,8 @@ import "../../GDAO.sol";
 
 /*
 ** This is a first implementation of a referendum vote.
-** TODO: Add accurate description
+** The "init" bool allows to make sure we can't vote for non existing proposals (needs to be done in other contracts too).
+** For now we have 3 different choices : vote yes, vote no or vote null. 
 */
 
 
@@ -26,10 +27,15 @@ contract ReferendumVoting is VotingInterface, ValidOrOwned {
     mapping (address => PropInfo) ballot;
 
 
-// Constructor function is empty
+/*
+** Constructor function is empty, maybe it could init the proposal.
+*/
 
     function ReferendumVoting(GDAO _proxy) Valid(_proxy) {
-    }
+    
+	}
+
+	
 
 	function propose(ProposalInterface proposal) external {
 			ballot[proposal].init = true;
@@ -59,8 +65,8 @@ contract ReferendumVoting is VotingInterface, ValidOrOwned {
 }
 
 
-// The two functions below are for informations purpose only.
-/*
+/*	The functions below are for informations purpose only.
+
 	function getTotalVotes(ProposalInterface proposal) external returns (uint){
 		return (ballot[proposal].totalVotes);
 	}
@@ -76,5 +82,5 @@ contract ReferendumVoting is VotingInterface, ValidOrOwned {
 	function getNullVotes(ProposalInterface proposal) external returns (uint){
 		return (ballot[proposal].nullVotes);
 	}
-}
-*/
+} */
+
