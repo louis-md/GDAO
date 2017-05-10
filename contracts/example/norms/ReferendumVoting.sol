@@ -13,7 +13,7 @@ import "../../GDAO.sol";
 
 
 contract ReferendumVoting is VotingInterface, ValidOrOwned {
-	
+
 	struct PropInfo {
 	uint totalVotes;
 	uint yesVotes;
@@ -22,7 +22,7 @@ contract ReferendumVoting is VotingInterface, ValidOrOwned {
 	bool init;
 	}
 
-	PropInfo Proposal;	
+	PropInfo Proposal;
     mapping (address => PropInfo) ballot;
 
 
@@ -30,27 +30,27 @@ contract ReferendumVoting is VotingInterface, ValidOrOwned {
 
     function ReferendumVoting(GDAO _proxy) Valid(_proxy) {
     }
-    
+
 	function propose(ProposalInterface proposal) external {
 			ballot[proposal].init = true;
     }
 
     function vote_yes(ProposalInterface proposal) external {
-        if (ballot[proposal].init == true) {	
+        if (ballot[proposal].init == true) {
 			ballot[proposal].totalVotes++;
 			ballot[proposal].yesVotes++;
 		}
     }
 
     function vote_no(ProposalInterface proposal) external {
-        if (ballot[proposal].init == true) {	
+        if (ballot[proposal].init == true) {
 			ballot[proposal].totalVotes++;
 			ballot[proposal].noVotes++;
 		}
     }
 
     function vote_null(ProposalInterface proposal) external {
-        if (ballot[proposal].init == true) {	
+        if (ballot[proposal].init == true) {
 			ballot[proposal].totalVotes++;
 			ballot[proposal].nullVotes++;
 		}
@@ -60,20 +60,21 @@ contract ReferendumVoting is VotingInterface, ValidOrOwned {
 
 
 // The two functions below are for informations purpose only.
-
+/*
 	function getTotalVotes(ProposalInterface proposal) external returns (uint){
 		return (ballot[proposal].totalVotes);
 	}
-	
+
 	function getYesVotes(ProposalInterface proposal) external returns (uint){
 		return (ballot[proposal].yesVotes);
 	}
-	
+
 	function getNoVotes(ProposalInterface proposal) external returns (uint){
 		return (ballot[proposal].noVotes);
 	}
-	
+
 	function getNullVotes(ProposalInterface proposal) external returns (uint){
 		return (ballot[proposal].nullVotes);
 	}
 }
+*/
