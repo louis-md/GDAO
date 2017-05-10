@@ -14,6 +14,6 @@ contract DummyProposal is ProposalInterface{
     }
 
     function getState() public constant returns (ProposalState){
-       return ProposalState.PASSED;
+       return ProposalState.ADOPTED;
     }
 }

@@ -20,6 +20,6 @@ contract TimeConstraintProposal is ProposalInterface{
        if (now < deadline)
           return ProposalState.VOTABLE;
        //TODO: needs state voting
-       return ProposalState.PASSED;
+       return ProposalState.ADOPTED;
     }
 }

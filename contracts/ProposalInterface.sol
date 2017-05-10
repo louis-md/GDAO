@@ -8,5 +8,5 @@ contract ProposalInterface {
     */
     function getState() public constant returns (ProposalState);
     
-    enum ProposalState    {NOTVOTABLE, VOTABLE, PASSED, REJECTED}
+    enum ProposalState    {NOTVOTABLE, VOTABLE, ADOPTED, REJECTED}
 }
