@@ -6,12 +6,12 @@ import "../../contracts/GDAO.sol";
 import "../../contracts/Legislator.sol";
 import "../../contracts/example/norms/Autocracy.sol";
 import "../../contracts/example/norms/SimpleMajorityVoting.sol";
-import "../../contracts/example/norms/SubstituteVoting.sol";
+import "../../contracts/example/norms/ReplaceVotingRule.sol";
 import "../../contracts/example/proposals/DummyProposal.sol";
 
 contract ReplaceVotingTest{
     LegislatorInterface legislator;
-    SubstituteVoting norm;
+    ReplaceVotingRule norm;
     NormCorpus normCorpus;
     SimpleMajorityVoting newVoting;
 
@@ -20,7 +20,7 @@ contract ReplaceVotingTest{
       normCorpus = NormCorpus(DeployedAddresses.NormCorpus());
       var proxy = GDAO(DeployedAddresses.GDAO());
       newVoting = new SimpleMajorityVoting(proxy);
-      norm = new SubstituteVoting(legislator, newVoting, proxy);
+      norm = new ReplaceVotingRule(legislator, newVoting, proxy);
       normCorpus.burnOwner();
       Legislator(legislator).burnOwner();
     }
