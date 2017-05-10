@@ -5,7 +5,7 @@ import "../../contracts/NormCorpus.sol";
 import "../../contracts/GDAO.sol";
 import "../../contracts/Legislator.sol";
 import "../../contracts/example/norms/SubstituteLegislator.sol";
-import "../../contracts/example/norms/AutocraticVoting.sol";
+import "../../contracts/example/norms/Autocracy.sol";
 import "../../contracts/example/proposals/DummyProposal.sol";
 import "../../contracts/example/corpuses/IterableNormCorpus.sol";
 
@@ -29,7 +29,7 @@ contract ReplaceLegislatorTest{
     function testWhenSubstituteNormCorpusIsEnacted_ThenNewCorpus(){
       var proposal = new DummyProposal(norm);
       legislator.proposeNorm(proposal);
-      AutocraticVoting(legislator.getVoting()).vote(proposal);
+      Autocracy(legislator.getVoting()).vote(proposal);
       bool result = legislator.enactNorm(proposal);
       Assert.isTrue(result, "Must be enacted, voted for");
       Assert.isTrue(normCorpus.contains(norm), "New norm must be in corpus");

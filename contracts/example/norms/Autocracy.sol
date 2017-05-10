@@ -5,11 +5,11 @@ import "../../VotingInterface.sol";
 import "../../ValidOrOwned.sol";
 
 
-contract AutocraticVoting is VotingInterface, ValidOrOwned {
+contract Autocracy is VotingInterface, ValidOrOwned {
 
     mapping (address => bool) passed;
 
-    function AutocraticVoting(GDAO _proxy) Valid(_proxy){
+    function Autocracy(GDAO _proxy) Valid(_proxy){
 
     }
 

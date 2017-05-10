@@ -4,7 +4,7 @@ import "truffle/DeployedAddresses.sol";
 import "../../contracts/NormCorpus.sol";
 import "../../contracts/GDAO.sol";
 import "../../contracts/Legislator.sol";
-import "../../contracts/example/norms/AutocraticVoting.sol";
+import "../../contracts/example/norms/Autocracy.sol";
 import "../../contracts/example/norms/SimpleMajorityVoting.sol";
 import "../../contracts/example/norms/SubstituteVoting.sol";
 import "../../contracts/example/proposals/DummyProposal.sol";
@@ -30,7 +30,7 @@ contract ReplaceVotingTest{
       legislator.proposeNorm(proposal);
       bool result = legislator.enactNorm(proposal);
       Assert.isFalse(result, "Cant be enacted, no vote has been casted");
-      AutocraticVoting oldNorm = AutocraticVoting(legislator.getVoting());
+      Autocracy oldNorm = Autocracy(legislator.getVoting());
       oldNorm.vote(proposal);
       result = legislator.enactNorm(proposal);
       Assert.isTrue(result, "Must be enacted, voted for");

@@ -4,7 +4,7 @@ import "truffle/DeployedAddresses.sol";
 import "../../contracts/NormCorpus.sol";
 import "../../contracts/GDAO.sol";
 import "../../contracts/Legislator.sol";
-import "../../contracts/example/norms/AutocraticVoting.sol";
+import "../../contracts/example/norms/Autocracy.sol";
 
 contract NormCorpusTest {
 

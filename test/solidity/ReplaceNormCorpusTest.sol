@@ -5,7 +5,7 @@ import "../../contracts/NormCorpus.sol";
 import "../../contracts/GDAO.sol";
 import "../../contracts/Legislator.sol";
 import "../../contracts/example/norms/SubstituteNormCorpus.sol";
-import "../../contracts/example/norms/AutocraticVoting.sol";
+import "../../contracts/example/norms/Autocracy.sol";
 import "../../contracts/example/proposals/DummyProposal.sol";
 import "../../contracts/example/corpuses/IterableNormCorpus.sol";
 
@@ -29,7 +29,7 @@ contract ReplaceNormCorpusTest{
     function testWhenSubstituteNormCorpusIsEnacted_ThenNewCorpus(){
       var proposal = new DummyProposal(norm);
       legislator.proposeNorm(proposal);
-      AutocraticVoting oldNorm = AutocraticVoting(legislator.getVoting());
+      Autocracy oldNorm = Autocracy(legislator.getVoting());
       oldNorm.vote(proposal);
       bool result = legislator.enactNorm(proposal);
       Assert.isTrue(result, "Must be enacted, voted for");
