@@ -7,23 +7,32 @@ import "../../contracts/Legislator.sol";
 import "../../contracts/example/norms/SimpleMajorityVoting.sol";
 import "../../contracts/example/proposals/DummyProposal.sol";
 
-contract TestSimpleMaj{
+contract TestSimpleMajorityVoting {
+
+	//	Casting contract types.
 	LegislatorInterface legislator;
 	NormCorpus normCorpus;
 	SimpleMajorityVoting newVoting;
 
 	function beforeEach() {
+
+		//	Init contract variables.
+		var proxy = GDAO(DeployedAddresses.GDAO());
 		legislator = LegislatorInterface(DeployedAddresses.Legislator());
 		normCorpus = NormCorpus(DeployedAddresses.NormCorpus());
-		var proxy = GDAO(DeployedAddresses.GDAO());
 		newVoting = new SimpleMajorityVoting(proxy);
+
+		//	Burn owners.
 		normCorpus.burnOwner();
 		Legislator(legislator).burnOwner();
 	}
 
-	function testSimpleMaj() {
+	function testProposeAndVote() {
+
+		//	Init 2 dummy proposals.
 		var proposal = new DummyProposal(1);
 		var proposal2 = new DummyProposal(2);
+
 		newVoting.propose(proposal);
 		newVoting.vote(proposal);
 		newVoting.vote(proposal);
@@ -37,4 +46,12 @@ contract TestSimpleMaj{
 		newVoting.vote(proposal2);
 		Assert.equal(newVoting.getVotersNumber(), 4, "Should have 2 voters");	
 	}
+	
+	function testVoteForUnknown() {
+		var proposal = new DummyProposal(1);
+		newVoting.vote(proposal);
+		Assert.equal(newVoting.getVotersNumber(), 0, "Total Voters should be zero (unknown proposal)");
+		Assert.equal(newVoting.getProposalVotes(proposal), 0, "Total votes for proposal should be zero (unknown proposal)");
+	}
+
 }
