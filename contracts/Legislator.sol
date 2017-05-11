@@ -1,4 +1,4 @@
-pragma solidity ^0.4.8;
+pragma solidity ^0.4.11;
 
 import "./NormCorpusInterface.sol";
 import "./NormCorpus.sol";

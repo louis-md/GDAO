@@ -1,4 +1,4 @@
-pragma solidity ^0.4.8;
+pragma solidity ^0.4.11;
 
 import "../../ProposalInterface.sol";
 import "../../VotingInterface.sol";
@@ -14,13 +14,13 @@ import "../../GDAO.sol";
 
 
 contract SimpleMajorityVoting is VotingInterface, ValidOrOwned {
-	
+
 	struct PropState {
 	uint votes;
 	bool init;
 	}
 
-	PropState Proposal;	
+	PropState Proposal;
     uint voters = 0;
     mapping (address => PropState) votes;
 
@@ -42,7 +42,7 @@ contract SimpleMajorityVoting is VotingInterface, ValidOrOwned {
     }
 
     function isPassed(ProposalInterface proposalToCheck) external constant returns (bool) {
-        if (voters < 2) 
+        if (voters < 2)
 			throw;
 		return (votes[proposalToCheck].votes > (voters / 2));
     }

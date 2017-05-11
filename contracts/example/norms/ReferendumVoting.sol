@@ -1,4 +1,4 @@
-pragma solidity ^0.4.8;
+pragma solidity ^0.4.11;
 
 import "../../ProposalInterface.sol";
 import "../../VotingInterface.sol";
@@ -9,7 +9,7 @@ import "../../GDAO.sol";
 /*
 ** This is a first implementation of a referendum vote.
 ** The "init" bool allows to make sure we can't vote for non existing proposals (needs to be done in other contracts too).
-** For now we have 3 different choices : vote yes, vote no or vote null. 
+** For now we have 3 different choices : vote yes, vote no or vote null.
 */
 
 
@@ -85,4 +85,3 @@ contract ReferendumVoting is ValidOrOwned {
 		return (ballot[proposal].nullVotes);
 	}
 }
-
