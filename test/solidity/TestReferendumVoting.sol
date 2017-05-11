@@ -69,8 +69,8 @@ contract TestReferendumVoting {
 		Assert.equal(newVoting.getNullVotes(proposal), 0, "Total votes for proposal should be zero (unknown proposal)");
 	}
 
-	function testVoteAndGetWinner() {
-		//	Init two dummy proposals.
+	function testVoteAndGetYesWinner() {
+		//	Init one dummy proposals.
 		var proposal = new DummyProposal(1);
 
 		// Propose twice for yes, once for no, once for null.
@@ -82,5 +82,21 @@ contract TestReferendumVoting {
 
 		// Check result of vote.
 		Assert.equal(newVoting.getWinningProposal(proposal), "yes", "The Yes should have won");
+	}
+
+	function testVoteAndGetTie() {
+		//	Init one dummy proposals.
+		var proposal = new DummyProposal(1);
+
+		// Propose twice for yes, twice for no, once for null.
+		newVoting.propose(proposal);
+		newVoting.voteYes(proposal);
+		newVoting.voteYes(proposal);
+		newVoting.voteNo(proposal);
+		newVoting.voteNo(proposal);
+		newVoting.voteNull(proposal);
+
+		// Check result of vote.
+		Assert.equal(newVoting.getWinningProposal(proposal), "tie", "It's supposed to be a tie");
 	}
 }
