@@ -13,7 +13,7 @@ import "../../GDAO.sol";
 */
 
 
-contract ReferendumVoting is VotingInterface, ValidOrOwned {
+contract ReferendumVoting is ValidOrOwned {
 
 	struct PropInfo {
 	uint totalVotes;
@@ -32,17 +32,11 @@ contract ReferendumVoting is VotingInterface, ValidOrOwned {
 */
 
     function ReferendumVoting(GDAO _proxy) Valid(_proxy) {
-			uint a = 1; 
 	}
 
 	function propose(ProposalInterface proposal) external {
 			ballot[proposal].init = true;
     }
-	
-	// Next function is needed to compile :(
-	function isPassed(ProposalInterface _proposalInterface) external constant returns (bool) {
-			return true;
-	}
 
     function voteYes(ProposalInterface proposal) external {
         if (ballot[proposal].init == true) {

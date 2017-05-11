@@ -51,37 +51,36 @@ contract TestReferendumVoting {
 		Assert.equal(newVoting.getTotalVotes(proposal), 4, "Should have 4 votes");
 		Assert.equal(newVoting.getNullVotes(proposal), 1, "Should have 1 Null votes");
 	}
-/*
+
 	function testVoteForUnknown() {
 
 		// Init one dummy proposal.
 		var proposal = new DummyProposal(1);
 
 		// Try to vote before proposing it.
-		newVoting.vote(proposal);
+		newVoting.voteYes(proposal);
+		newVoting.voteNo(proposal);
+		newVoting.voteNull(proposal);
 
 		// Check that it didn't vote.
-		Assert.equal(newVoting.getVotersNumber(), 0, "Total Voters should be zero (unknown proposal)");
-		Assert.equal(newVoting.getProposalVotes(proposal), 0, "Total votes for proposal should be zero (unknown proposal)");
+		Assert.equal(newVoting.getTotalVotes(proposal), 0, "Total Voters should be zero (unknown proposal)");
+		Assert.equal(newVoting.getYesVotes(proposal), 0, "Total votes for proposal should be zero (unknown proposal)");
+		Assert.equal(newVoting.getNoVotes(proposal), 0, "Total votes for proposal should be zero (unknown proposal)");
+		Assert.equal(newVoting.getNullVotes(proposal), 0, "Total votes for proposal should be zero (unknown proposal)");
 	}
 
 	function testVoteAndGetWinner() {
 		//	Init two dummy proposals.
 		var proposal = new DummyProposal(1);
-		var proposal2 = new DummyProposal(2);
 
-		// Propose both and vote twice for 1st, once for 2nd.
+		// Propose twice for yes, once for no, once for null.
 		newVoting.propose(proposal);
-		newVoting.propose(proposal2);
-		newVoting.vote(proposal);
-		newVoting.vote(proposal);
-		newVoting.vote(proposal2);
+		newVoting.voteYes(proposal);
+		newVoting.voteYes(proposal);
+		newVoting.voteNo(proposal);
+		newVoting.voteNull(proposal);
 
-		// Check number of votes required to pass.
-		Assert.equal(newVoting.getVotesRequiredToPass(), 2, "Total votes required to pass should be 2 (3/2+1)");
-		Assert.isFalse(newVoting.isPassed(proposal2), "Proposal2 should not be passed");
-		Assert.isTrue(newVoting.isPassed(proposal), "Proposal should be passed");
-
+		// Check result of vote.
+		Assert.equal(newVoting.getWinningProposal(proposal), "yes", "The Yes should have won");
 	}
-*/
 }
