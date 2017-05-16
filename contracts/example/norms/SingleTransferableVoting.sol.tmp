@@ -1,0 +1,69 @@
+pragma solidity ^0.4.11;
+
+/*
+** Note : "ST" stands for Single Transferable.
+** This is a first implementation of a ST vote.
+** In this example, choices will be limited to 2.
+** Winners will also be limited to 2.
+** The "init" bool allows to make sure we can't vote for non existing proposals.
+*/
+
+
+
+
+contract SingleTransferableVoting {
+/*
+** Creating the necessary variables
+*/
+
+	struct PropInfo {
+        bool    init;
+        uint    voteCount;
+        uint    secondVote;
+	}
+	uint    totalVotes;
+    mapping (uint => PropInfo) ballot;
+
+
+
+
+/*
+** Constructor function receives the number of proposals.
+*/
+
+    function SingleTransferableVoting(uint nbProposals/*, uint nbWinners*/) {
+	    while (nbProposals > 0) {
+			ballot[nbProposals].init = true;
+			nbProposals--;
+	    }
+    }
+    
+    function Vote(uint firstChoice, uint secondChoice) {
+        if (ballot[firstChoice].init == true)
+            ballot[firstChoice].voteCount++;
+        if (ballot[secondChoice].init == true)
+            ballot[secondChoice].secondVote++;
+        if (ballot[firstChoice].init == true || ballot[secondChoice].init == true)
+            totalVotes++;
+    }
+
+    function endBallot() returns (uint firstPlace, uint secondPlace) {
+            firstPlace = getWinner();
+    }
+    
+    function getWinner() returns (uint firstPlace) {
+        uint requiredVotes = (totalVotes / 3) + 1;
+        bool foundWinner = false;
+        
+        for (uint i = 0; ballot[i].init == true; i++) {
+            if (ballot[i].voteCount >= requiredVotes && firstPlace == 0)
+            {
+                firstPlace = i;
+                foundWinner = true;
+            }
+            else if (ballot[i].voteCount >= requiredVotes && ballot[i].voteCount > ballot[firstPlace].voteCount)
+                firstPlace = i;
+        }
+        if (foundWinner == false)
+    }
+}
