@@ -21,6 +21,6 @@ contract ReplaceVotingRule is Valid{
         legislator.setVoting(newVoting);
         NormCorpusInterface normCorpus = normCorpusProxy.getInstance();
         normCorpus.remove(this);
-        suicide(legislator);
+        selfdestruct(legislator);
     }
 }
