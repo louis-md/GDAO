@@ -3,7 +3,7 @@ pragma solidity ^0.4.11;
 /*
 ** Note : "ST" stands for Single Transferable.
 ** This is a first implementation of a ST vote.
-** In this example, choices will be limited to 2.
+** In this example, vote choices will be limited to 2.
 ** Winners will also be limited to 2.
 ** The "init" bool allows to make sure we can't vote for non existing proposals.
 */
@@ -13,7 +13,7 @@ pragma solidity ^0.4.11;
 
 contract SingleTransferableVoting {
 /*
-** Creating the necessary variables
+** Creating proposal structure.
 */
 
 	struct PropInfo {
@@ -21,6 +21,16 @@ contract SingleTransferableVoting {
         uint    voteCount;
         uint    secondVote;
 	}
+
+/*
+** Creating vote structure to be able to transfer votes to second choices when
+** it is necessary.
+*/
+	struct oneVote {
+	    uint firstChoice;
+	    uint secondChoice;
+	}
+	
 	uint    totalVotes;
     mapping (uint => PropInfo) ballot;
 
@@ -38,7 +48,14 @@ contract SingleTransferableVoting {
 	    }
     }
     
+    function setVotes(uint firstChoice, uint secondChoice) {
+        // Can't vote twice for the same proposal
+        if (firstChoice == secondChoice)
+            secondChoice = 0;
+    }
+        
     function Vote(uint firstChoice, uint secondChoice) {
+
         if (ballot[firstChoice].init == true)
             ballot[firstChoice].voteCount++;
         if (ballot[secondChoice].init == true)
@@ -55,7 +72,7 @@ contract SingleTransferableVoting {
         uint requiredVotes = (totalVotes / 3) + 1;
         bool foundWinner = false;
         
-        for (uint i = 0; ballot[i].init == true; i++) {
+        for (uint i = 1; ballot[i].init == true; i++) {
             if (ballot[i].voteCount >= requiredVotes && firstPlace == 0)
             {
                 firstPlace = i;
@@ -65,5 +82,11 @@ contract SingleTransferableVoting {
                 firstPlace = i;
         }
         if (foundWinner == false)
+            foundWinner = false; //Just to compile for now
+    }
+    
+    function removeLoser () {
+        
+        
     }
 }
