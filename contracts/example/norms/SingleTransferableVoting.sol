@@ -58,7 +58,12 @@ contract SingleTransferableVoting {
         voteList[totalVoters].secondChoice = secondChoice;
     }
     
-    function findLoser () returns (uint) {
+/*
+** findLoser finds the proposal with the lowest nbr of votes then calls removeLoser.
+** TODO:
+** What if we have 2 equal number of lowest votes?
+*/
+    function findLoser () {
         uint i = 1;
         uint loser = ballot[i].voteCount;
         
@@ -69,8 +74,13 @@ contract SingleTransferableVoting {
                     loser = ballot[i].voteCount;
                 i++;
             }
+            removeLoser(i);
     }
-    
+
+/*
+** removeLoser replace the firstChoice with the secondChoice if the firstChoice is
+** the loser.
+*/
     function removeLoser (uint loser) {
         uint i = 1;
         
@@ -96,13 +106,17 @@ contract SingleTransferableVoting {
         return (res);
     }
     
-    function countVote(uint firstChoice, uint secondChoice) {
-
-        if (ballot[firstChoice].init == true)
-            ballot[firstChoice].voteCount++;
-        if (ballot[secondChoice].init == true)
-            ballot[secondChoice].secondVote++;
+    function countVote() {
+        uint i = 1;
         
+        while (i <= totalVoters)
+        {
+        if (ballot[voteList[i].firstChoice].init == true)
+            ballot[voteList[i].firstChoice].voteCount++;
+        if (ballot[voteList[i].secondChoice].init == true)
+            ballot[voteList[i].secondChoice].secondVote++;
+        i++;
+        }
     }
 
     function endBallot() returns (uint firstPlace, uint secondPlace) {
