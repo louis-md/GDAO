@@ -24,7 +24,8 @@ contract SingleTransferableVoting {
 	    uint firstChoice;
 	    uint secondChoice;
 	}
-	uint    totalVoters;
+        uint totalWinners = 0;
+        uint totalVoters = 0;
 	
 /*
 ** TODO: Gas cost test with array and mapping for the voteList below.
@@ -33,7 +34,7 @@ contract SingleTransferableVoting {
 
     mapping (uint => PropInfo) ballot;
     mapping (uint => oneVote) voteList;
-    
+    mapping (uint => uint) transferCount;    
 /*
 ** Constructor function receives the number of proposals.
 ** It inits them so they can be voted for.
@@ -76,6 +77,23 @@ contract SingleTransferableVoting {
             }
             removeLoser(i);
     }
+    
+    function transferExcess(uint firstPlace, uint excessVotes) {
+        uint i = 1;
+
+        while (i <= totalVoters)
+            {
+                if (voteList[i].firstChoice == firstPlace)
+                    transferCount[voteList[i].secondChoice]++;
+                i++;
+            }
+        i = 1;
+        while (i <= totalVoters)
+        {
+            if (voteList[i].firstChoice == firstPlace)
+                firstPlace = firstPlace; // JUST TO COMPILE
+        }
+    }
 
 /*
 ** removeLoser replace the firstChoice with the secondChoice if the firstChoice is
@@ -111,21 +129,23 @@ contract SingleTransferableVoting {
         
         while (i <= totalVoters)
         {
-        if (ballot[voteList[i].firstChoice].init == true)
-            ballot[voteList[i].firstChoice].voteCount++;
-        if (ballot[voteList[i].secondChoice].init == true)
-            ballot[voteList[i].secondChoice].secondVote++;
-        i++;
+            if (ballot[voteList[i].firstChoice].init == true)
+                ballot[voteList[i].firstChoice].voteCount++;
+            if (ballot[voteList[i].secondChoice].init == true)
+                ballot[voteList[i].secondChoice].secondVote++;
+            i++;
         }
     }
 
     function endBallot() returns (uint firstPlace, uint secondPlace) {
             firstPlace = getWinner();
+            secondPlace = getWinner();
     }
     
     function getWinner() returns (uint firstPlace) {
         uint requiredVotes = (totalVoters / 3) + 1;
         bool foundWinner = false;
+
         
         for (uint i = 1; ballot[i].init == true; i++) {
             if (ballot[i].voteCount >= requiredVotes && firstPlace == 0)
@@ -137,6 +157,13 @@ contract SingleTransferableVoting {
                 firstPlace = i;
         }
         if (foundWinner == false)
-            foundWinner = false; //Just to compile for now
+        {
+            findLoser();
+            getWinner();
+        }
+        totalWinners++;
+        foundWinner = false; // Not sure this is necessary.
+        if (totalWinners < 2)
+            transferExcess(firstPlace, (ballot[firstPlace].voteCount - requiredVotes));
     }
 }
