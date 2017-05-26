@@ -1,0 +1,26 @@
+pragma solidity ^0.4.11;
+
+// The 2 imports below are required by Truffle
+import "truffle/Assert.sol";
+import "truffle/DeployedAddresses.sol";
+
+/* Import necessary contracts below : */
+// import "";
+
+contract TestChapterStorage {
+
+/* Init Global Variables below : */
+// int global = 0;	
+
+/*	Mocha function/tools below : */
+//	function beforeAll(){}
+//	function beforeEach(){}
+//	function afterAll(){}
+//	function afterEach(){}
+
+
+	/* Testing functions below */
+	function testSomething() {
+
+	}
+}
