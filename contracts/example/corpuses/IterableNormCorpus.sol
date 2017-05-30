@@ -38,7 +38,7 @@ contract IterableNormCorpus is Owned, NormCorpusInterface {
     }
 
 
-  function listNormsAsEvents() returns (bool s)
+  function listNormsAsEvents() returns (bool)
   {
     for (var i = IterableAddressToBoolMap.iterate_start(isNorm); IterableAddressToBoolMap.iterate_valid(isNorm, i); i = IterableAddressToBoolMap.iterate_next(isNorm, i))
     {

@@ -6,17 +6,16 @@ import "./Owned.sol";
 
 contract NormCorpus is NormCorpusInterface, Owned {
 
-    mapping(address => bool) public isNorm;
+    mapping(bytes32 => address) public isNorm;
     uint public numberOfNorms;
 
 
-    function NormCorpus(){
+    function NormCorpus() {
       owner = msg.sender;
     }
 
-    modifier isCallerValidOrOwner {
-
-        if (contains(msg.sender)) {
+    modifier isCallerValidOrOwner(bytes32 _name) {
+        if (contains(_name)) {
             _;
         }
         else if (owner == msg.sender) {
@@ -24,19 +23,24 @@ contract NormCorpus is NormCorpusInterface, Owned {
         }
         else CallerNotValid(msg.sender);
     }
+
     event CallerNotValid(address);
 
-    function insert(address _contract) isCallerValidOrOwner {
-        isNorm[_contract] = true;
+    function insert(bytes32 _name, address _contract) isCallerValidOrOwner(_name) {
+        isNorm[_name] = _contract;
         numberOfNorms = numberOfNorms + 1;
     }
 
-    function remove(address _contract) isCallerValidOrOwner {
-        delete isNorm[_contract];
+    function remove(bytes32 _name) isCallerValidOrOwner(_name) {
+        delete isNorm[_name];
         numberOfNorms = numberOfNorms - 1;
     }
 
-    function contains(address _contract) public constant returns(bool) {
-        return isNorm[_contract];
+    function contains(bytes32 _name) public constant returns (bool) {
+        if (isNorm[_name] == 0x0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

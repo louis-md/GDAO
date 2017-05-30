@@ -11,7 +11,7 @@ contract Owned {
         owner = msg.sender;
     }
     
-    modifier onlyOwner(){
+    modifier onlyOwner() {
         if (owner != msg.sender) return;
         _;
     }
