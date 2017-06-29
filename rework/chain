@@ -1,0 +1,6 @@
+GDAO
+
+Legislator <= ValidorOwned <= Valid, Owned
+NormCorpus <= Owned
+VotingInterface <= Valid
+

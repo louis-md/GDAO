@@ -1,0 +1,19 @@
+
+======I======
+
+GDAO.sol => @
+Legislator.sol => @
+NormCorpus.sol => Functions
+ProposalInterface.sol => @
+
+======C======
+
+ValidOrOwned.sol => @
+Owned.sol => @
+Valid.sol => @
+NormCorpus.sol => Modifier
+
+
+======S======
+
+Normcorpus.sol => Mappings
