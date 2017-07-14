@@ -1,6 +1,6 @@
 {
   "name": "@97network/gdao",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Read the [Technical Draft](https://docs.google.com/document/d/1_SOMatgx2aX2i9H9qVG48WNyynrwjFn1a8g2J4SPy14/edit?usp=sharing)",
   "main": "index.js",
   "directories": {
@@ -22,13 +22,11 @@
     "url": "https://github.com/97network/GDAO/issues"
   },
   "homepage": "https://github.com/97network/GDAO#readme",
-  "dependencies": {
-    "truffle": "^3.2.2"
-  },
+  "dependencies": {},
   "engines": {
     "node": ">=7.10.0"
   },
-  "devDependencies": {},
+  "devDependencies": {"truffle": "^3.2.2"},
   "keywords": [
     "dao",
     "ethereum",
