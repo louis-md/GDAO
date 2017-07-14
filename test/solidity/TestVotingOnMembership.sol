@@ -22,9 +22,7 @@ contract TestVotingOnMembership {
 		normCorpus = NormCorpus(DeployedAddresses.NormCorpus());
 		newVoting = MajorityVotingWithMembership(DeployedAddresses.MajorityVotingWithMembership());
 
-		//	Burn owners.
-		normCorpus.burnOwner();
-		Legislator(legislator).burnOwner();
+
 	}
 
 	function testProposeAndVote() {
@@ -33,24 +31,32 @@ contract TestVotingOnMembership {
 		var proposal = new DummyProposal(1);
 		var proposal2 = new DummyProposal(2);
 
+    //instantiate gdao1
+		//Instantiate voting
+	  // add membership list to the normcorups?
+		// instantiate gdao2
+		// add membership to the voting 2
+		// elect new members by a norm on gdao1
+    // enact the norm so that membership2 is filled with new members
+
 		// Propose and vote twice.
-		newVoting.propose(proposal);
-		newVoting.vote(proposal);
-		newVoting.vote(proposal);
+	//	newVoting.propose(proposal);
+//		newVoting.vote(proposal);
+//		newVoting.vote(proposal);
 		//Assert.equal(newVoting.getVotersNumber(), 2, "Should have 2 voters");
 		//Assert.equal(newVoting.getProposalVotes(proposal), 2, "Should have 2 voters");
 
 		// New proposal and vote twice again
-		newVoting.propose(proposal2);
-		newVoting.vote(proposal2);
-		newVoting.vote(proposal2);
+	//	newVoting.propose(proposal2);
+	//	newVoting.vote(proposal2);
+	//	newVoting.vote(proposal2);
 
 		// Testing that we do have 4 total votes, 2 for each.
 		//Assert.equal(newVoting.getVotersNumber(), 4, "Should have 2 voters");
 		//Assert.equal(newVoting.getProposalVotes(proposal), 2, "Should have 2 voters");
 		//Assert.equal(newVoting.getProposalVotes(proposal2), 2, "Should have 2 voters");
 	}
-
+/*
 	function testVoteForUnknown() {
 
 		// Init 1 dummy proposal.
@@ -83,5 +89,5 @@ contract TestVotingOnMembership {
 		Assert.isTrue(newVoting.isPassed(proposal), "Proposal should be passed");
 
 	}
-
+*/
 }
